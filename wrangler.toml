@@ -6,6 +6,7 @@ compatibility_flags = [ "nodejs_compat" ]
 [vars]
 KV_STORE="IDB_KEYVAL"
 MY_VAR = "my-variable"
+JWT_SECRET = "default-secret-for-testing"
 JWT_FINGERPRINT_COOKIE_NAME="__Secure-Fgp"
 JWT_FINGERPRINT_REFRESH_COOKIE_NAME="__Secure-Fgp-Refresh"
 

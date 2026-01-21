@@ -25,6 +25,7 @@
     "@vitest/ui": "^4.0.17",
     "drizzle-kit": "^0.31.8",
     "http-server": "^14.1.1",
+    "tsx": "^4.21.0",
     "vitest": "^4.0.17",
     "wrangler": "^4.59.3"
   }

@@ -39,17 +39,18 @@ app.post(
   async (c, next) => await validateRefreshToken(c, next),
   async (c) => {
     // const result = await
-    const { uid } = c.get("jwt")
+    console.log({ exp: c.env.TOKEN_EXPIRATION })
+    const { uid } = c.req.json()
     const token = await generateAccessToken(
       c.env.JWT_SECRET,
       uid,
       c.env.TOKEN_EXPIRATION,
     )
-    setCookie(c, c.env.JWT_FINGERPRINT_COOKIE_NAME, token.fingerprint, {
-      secure: true,
-      httpOnly: true,
-      sameSite: "Strict",
-    })
+    // setCookie(c, c.env.JWT_FINGERPRINT_COOKIE_NAME, token.fingerprint, {
+    //   secure: true,
+    //   httpOnly: true,
+    //   sameSite: "Strict",
+    // })
     return c.json({
       token: token.token,
     })

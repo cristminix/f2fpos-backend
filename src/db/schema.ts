@@ -7,7 +7,8 @@ export const sessions = sqliteTable("sessions", {
   ipaddr: text("ipaddr", { length: 256 }).notNull(),
   uid: integer("uid", { mode: "number" }).notNull(),
   refreshToken: text("refreshToken", { length: 256 }).notNull(),
-  blacklist: integer("blacklist", { length: 1}).notNull(),
+  //@ts-ignore
+  blacklist: integer("blacklist", { length: 1 }).notNull(),
   kind: text("kind", { length: 50 }).notNull(),
 
   // timestamp is set on insert
@@ -28,7 +29,17 @@ export const users = sqliteTable("users", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
 })
+export const user_roles = sqliteTable("user_roles", {
+  // id is set on insert, incrementing
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: integer("userId", { mode: "number" }).notNull(),
+  password: text("roles", { length: 256 }).notNull(),
 
+  // timestamp is set on insert
+  timestamp: text("timestamp")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+})
 export const posts = sqliteTable("posts", {
   // id is set on insert, incrementing
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),

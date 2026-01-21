@@ -4,11 +4,13 @@ import { applyJwtValidationApi } from "./middlewares/jwt-validation-api"
 import authRouter from "./routes/auth"
 import apiRouter from "./routes/api"
 import debugRouter from "./routes/debug"
+import LoginServiceRouter from "./routes/services/LoginService"
 const app = createHonoWithBindings()
 
 applyCorsMiddleware(app)
 applyJwtValidationApi(app)
 
+app.route("/LoginService", LoginServiceRouter)
 app.route("/auth", authRouter)
 app.route("/api", apiRouter)
 app.route("/debug", debugRouter)
