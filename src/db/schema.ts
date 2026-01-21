@@ -57,5 +57,6 @@ export const posts = sqliteTable("posts", {
 })
 
 export type User = InferModel<typeof users>
+export type UserRole = InferModel<typeof user_roles>
 export type Post = InferModel<typeof posts>
 export type Session = InferModel<typeof sessions>

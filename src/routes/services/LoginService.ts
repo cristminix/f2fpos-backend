@@ -13,6 +13,7 @@ import { users } from "../../db/schema"
 import { validateRefreshToken } from "../../middlewares/jwt-refresh-token-validation"
 // import {validateAccessToken} from "../middlewares/jwt-validation-api"
 import MUser from "../../global/models/MUser"
+import MUserRole from "../../global/models/MUserRole"
 
 const registerValidationSchema = z.object({
   username: z.string(),
@@ -21,8 +22,8 @@ const registerValidationSchema = z.object({
 })
 
 const loginValidationSchema = z.object({
-  devId: z.string(),
-  ipaddr: z.string(),
+  //   devId: z.string(),
+  //   ipaddr: z.string(),
   password: z.string(),
   email: z.string().email(),
 })
@@ -55,5 +56,43 @@ app.post(
     })
   },
 )
+app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
+  const user = c.req.valid("form")
 
+  const { email, password } = user
+  const mUser = new MUser(c)
+  const mUserRole = new MUserRole(c)
+
+  let userRow = await mUser.getRow({ email })
+
+  if (!userRow) {
+    return c.json({ success: false, message: "User not found" }, 404)
+  }
+
+  const encryptedPassword = await encryptPassword(password, c.env.JWT_SECRET)
+  console.log({ encryptedPassword })
+  const isPasswordMatched = userRow?.password === encryptedPassword
+
+  if (!isPasswordMatched) {
+    return c.json({ success: false, message: "Wrong password" }, 404)
+  }
+  const token = await generateAccessToken(
+    c.env.JWT_SECRET,
+    userRow.id,
+    c.env.TOKEN_EXPIRATION,
+  )
+
+  const refreshToken = await generateRefreshToken(
+    c.env.JWT_SECRET,
+    userRow.id,
+    c.env.REFRESH_TOKEN_EXPIRATION,
+  )
+
+  return c.json({
+    success: true,
+    message: "login success",
+    token: token.token,
+    refreshToken: refreshToken.token,
+  })
+})
 export default app
