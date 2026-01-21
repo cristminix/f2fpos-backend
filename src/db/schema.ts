@@ -33,7 +33,7 @@ export const user_roles = sqliteTable("user_roles", {
   // id is set on insert, incrementing
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   userId: integer("userId", { mode: "number" }).notNull(),
-  password: text("roles", { length: 256 }).notNull(),
+  roles: text("roles", { length: 256 }).notNull(),
 
   // timestamp is set on insert
   timestamp: text("timestamp")

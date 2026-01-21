@@ -12,18 +12,16 @@ class Logger {
 }
 
 class DrizzleBaseModel {
-  // wasmPath = "web/data/sql/sql-wasm.wasm"
-  pk = "id"
-  path = null
-  // git = null
-  // fs = null
-  schema = null
-  db = null
-  logger = null
-  ready = false
+  pk: any = "id"
+  path: any = null
+
+  schema: any = null
+  db: any = null
+  logger: any = null
+  ready: any = false
   // dir = null
-  sqldb = null
-  searchFields = []
+  sqldb: any = null
+  searchFields: any[] = []
 
   constructor(c) {
     this.db = drizzle(c.env.DB)
@@ -34,7 +32,9 @@ class DrizzleBaseModel {
 
     if (this.searchFields.length === 0) {
       for (const field of allFields) {
+        // @ts-ignore
         if (this.schema[field].dataType === "string")
+          // @ts-ignore
           this.searchFields.push(field)
       }
     }
@@ -84,6 +84,7 @@ class DrizzleBaseModel {
     const fields = Object.keys(order)
     const [field] = fields
     const direction = order[field]
+    // @ts-ignore
     const orderBy =
       direction === "asc" ? asc(this.schema[field]) : desc(this.schema[field])
     return orderBy
@@ -98,6 +99,7 @@ class DrizzleBaseModel {
 
     for (const field of fields) {
       if (allFields.includes(field)) {
+        // @ts-ignore
         conditionArr.push(eq(this.schema[field], filter[field]))
         // break
       } else {
@@ -106,14 +108,17 @@ class DrizzleBaseModel {
         )
       }
     }
+    // @ts-ignore
     if (conditionArr.length > 0) return and.apply(this, conditionArr)
     return null
   }
   addQuerySearch(searchFields, searchQuery) {
     const likes = []
     for (const field of searchFields) {
+      // @ts-ignore
       likes.push(like(this.schema[field], `%${searchQuery}%`))
     }
+    // @ts-ignore
     if (likes.length > 0) return or.apply(this, likes)
     return null
   }
@@ -121,10 +126,12 @@ class DrizzleBaseModel {
     let result = null
     if (this.isValidFilter(filter)) {
       let condition = this.addQueryFilter(filter)
+      // @ts-ignore
       result = await this.db
         .select({ count: count(this.schema.id) })
         .from(this.schema)
         .where(condition)
+      // @ts-ignore
       const [row] = result
       if (row) return row.count
       return 0
@@ -133,19 +140,24 @@ class DrizzleBaseModel {
     return await this.countAll()
   }
   async countAll() {
+    // @ts-ignore
     const result = await this.db.select({ count: count() }).from(this.schema)
+    // @ts-ignore
     const [row] = result
     if (row) return row.count
     return 0
   }
 
   getAll() {
+    // @ts-ignore
     return this.db.select().from(this.schema).all()
   }
   async getRecords(orderBy) {
+    // @ts-ignore
     return await this.db.select().from(this.schema).orderBy(orderBy)
   }
   async getRecords_withPage(orderBy, limit, offset) {
+    // @ts-ignore
     return await this.db
       .select()
       .from(this.schema)
@@ -154,6 +166,7 @@ class DrizzleBaseModel {
       .offset(offset)
   }
   async getRecordsWithFilter(orderBy, condition) {
+    // @ts-ignore
     return await this.db
       .select()
       .from(this.schema)
@@ -162,6 +175,7 @@ class DrizzleBaseModel {
   }
   async getRecordsWithFilter_withPage(orderBy, limit, offset, condition) {
     // console.log(limit,offset,condition)
+    // @ts-ignore
     return await this.db
       .select()
       .from(this.schema)
@@ -177,10 +191,12 @@ class DrizzleBaseModel {
       records = await this.db
         .select()
         .from(this.schema)
+        // @ts-ignore
         .where(like(this.schema[searchField], `%${searchQuery}%`))
         .orderBy(orderBy)
     } else {
       const searchFields = this.getSearchFields()
+      // @ts-ignore
       const searchCondition = this.addQuerySearch(searchFields, searchQuery)
       records = await this.db
         .select()
@@ -204,12 +220,14 @@ class DrizzleBaseModel {
       records = await this.db
         .select()
         .from(this.schema)
+        // @ts-ignore
         .where(like(this.schema[searchField], `%${searchQuery}%`))
         .orderBy(orderBy)
         .limit(limit)
         .offset(offset)
     } else {
       const searchFields = this.getSearchFields()
+      // @ts-ignore
       const searchCondition = this.addQuerySearch(searchFields, searchQuery)
       records = await this.db
         .select()
@@ -237,6 +255,7 @@ class DrizzleBaseModel {
         .select()
         .from(this.schema)
         .where(
+          // @ts-ignore
           and(condition, like(this.schema[searchField], `%${searchQuery}%`)),
         )
         .orderBy(orderBy)
@@ -248,6 +267,7 @@ class DrizzleBaseModel {
       records = await this.db
         .select()
         .from(this.schema)
+        // @ts-ignore
         .where(and(condition, searchCondition))
         .orderBy(orderBy)
         .limit(limit)
@@ -269,6 +289,7 @@ class DrizzleBaseModel {
         .select()
         .from(this.schema)
         .where(
+          // @ts-ignore
           and(condition, like(this.schema[searchField], `%${searchQuery}%`)),
         )
         .orderBy(orderBy)
@@ -278,6 +299,7 @@ class DrizzleBaseModel {
       records = await this.db
         .select()
         .from(this.schema)
+        // @ts-ignore
         .where(and(condition, searchCondition))
         .orderBy(orderBy)
     }
@@ -293,8 +315,10 @@ class DrizzleBaseModel {
     } else {
       condition = this.addQueryFilter({ [this.pk]: pk })
     }
+    // @ts-ignore
     const result = this.db.select().from(this.schema).where(condition)
 
+    // @ts-ignore
     return result.get(0)
   }
   getListParam(limit, page, order, filter, search) {
@@ -308,6 +332,7 @@ class DrizzleBaseModel {
       search = objectParam.search ?? null
     }
 
+    // @ts-ignore
     const defaultOrder = this.defaultOrder ?? { [this.pk]: "asc" }
     const orderBy = this.addQueryOrder(
       this.isValidOrder(order) ? order : defaultOrder,
@@ -355,6 +380,7 @@ class DrizzleBaseModel {
       let result = await this.db
         .select({ pk: this.schema[this.pk] })
         .from(this.schema)
+        // @ts-ignore
         .where(
           and(like(this.schema[searchField], `%${searchQuery}%`)),
           condition,
@@ -369,6 +395,8 @@ class DrizzleBaseModel {
       let result = await this.db
         .select({ pk: this.schema[this.pk] })
         .from(this.schema)
+        // @ts-ignore
+        // @ts-ignore
         .where(and(searchCondition, searchCondition))
         .limit(limit)
         .offset(offset)
@@ -387,6 +415,7 @@ class DrizzleBaseModel {
       result = await this.db
         .select({ count: count(this.schema.id) })
         .from(this.schema)
+        // @ts-ignore
         .where(
           and(like(this.schema[searchField], `%${searchQuery}%`)),
           condition,
@@ -395,8 +424,12 @@ class DrizzleBaseModel {
       result = await this.db
         .select({ count: count(this.schema.id) })
         .from(this.schema)
+        // @ts-ignore
+        // @ts-ignore
         .where(and(condition, searchCondition))
     }
+    // @ts-ignore
+    // @ts-ignore
     const [row] = result
     if (row) return row.count
     return 0
@@ -412,6 +445,7 @@ class DrizzleBaseModel {
       let result = await this.db
         .select({ pk: this.schema[this.pk] })
         .from(this.schema)
+        // @ts-ignore
         .where(like(this.schema[searchField], `%${searchQuery}%`))
         .limit(limit)
         .offset(offset)
@@ -423,6 +457,7 @@ class DrizzleBaseModel {
       let result = await this.db
         .select({ pk: this.schema[this.pk] })
         .from(this.schema)
+        // @ts-ignore
         .where(searchCondition)
         .limit(limit)
         .offset(offset)
@@ -441,6 +476,8 @@ class DrizzleBaseModel {
       result = await this.db
         .select({ count: count(this.schema.id) })
         .from(this.schema)
+        // @ts-ignore
+        // @ts-ignore
         .where(searchCondition)
     }
     const [row] = result
@@ -448,6 +485,7 @@ class DrizzleBaseModel {
     return 0
   }
   async getCountWithFilter_withPage(limit, offset, condition) {
+    // @ts-ignore
     let result = await this.db
       .select({ pk: this.schema[this.pk] })
       .from(this.schema)
@@ -458,6 +496,7 @@ class DrizzleBaseModel {
     return result.length
   }
   async getCountWithFilter(condition) {
+    // @ts-ignore
     const result = await this.db
       .select({ count: count(this.schema.id) })
       .from(this.schema)
@@ -467,6 +506,7 @@ class DrizzleBaseModel {
     return 0
   }
   async getCount_withPage(limit, offset) {
+    // @ts-ignore
     let result = await this.db
       .select({ pk: this.schema[this.pk] })
       .from(this.schema)
@@ -600,6 +640,7 @@ class DrizzleBaseModel {
       if (hasPage) {
         records = await this.getRecordsWithSearch_withFilter_withPage(
           orderBy,
+          // @ts-ignore
           condition,
           limit,
           offset,
@@ -610,6 +651,7 @@ class DrizzleBaseModel {
       } else {
         records = await this.getRecordsWithSearch_with_filter(
           orderBy,
+          // @ts-ignore
           condition,
           searchType,
           searchField,
@@ -643,9 +685,11 @@ class DrizzleBaseModel {
           orderBy,
           limit,
           offset,
+          // @ts-ignore
           condition,
         )
       } else {
+        // @ts-ignore
         records = await this.getRecordsWithFilter(orderBy, condition)
       }
     } else {

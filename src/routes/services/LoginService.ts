@@ -76,10 +76,14 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
   if (!isPasswordMatched) {
     return c.json({ success: false, message: "Wrong password" }, 404)
   }
+  const userRoles = await mUserRole.getRow({ userId: userRow.id })
+  let roles: any = {}
   const token = await generateAccessToken(
     c.env.JWT_SECRET,
     userRow.id,
+
     c.env.TOKEN_EXPIRATION,
+    roles,
   )
 
   const refreshToken = await generateRefreshToken(
@@ -88,11 +92,15 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
     c.env.REFRESH_TOKEN_EXPIRATION,
   )
 
+  try {
+    roles = JSON.parse(userRoles.roles)
+  } catch (error) {}
   return c.json({
     success: true,
     message: "login success",
     token: token.token,
     refreshToken: refreshToken.token,
+    roles,
   })
 })
 export default app

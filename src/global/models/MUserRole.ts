@@ -1,8 +1,8 @@
 import { user_roles } from "../../db/schema"
 import DrizzleModel from "./DrizzleModel"
 class MUserRole extends DrizzleModel {
-	schema = user_roles
+  schema = user_roles
 
-	getRowByUserId(userId: number) { }
+  getRowByUserId(userId: number) {}
 }
-export default MUser
+export default MUserRole
