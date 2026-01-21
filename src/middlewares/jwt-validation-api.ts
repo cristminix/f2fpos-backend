@@ -5,6 +5,12 @@ import { bearerAuth } from "hono/bearer-auth"
 
 export function applyJwtValidationApi(app) {
   app.use("/api/*", async (c, next) => {
+    // Exclude LoginService routes from JWT validation
+    const path = c.req.path
+    if (path.startsWith("/api/LoginService/")) {
+      return next()
+    }
+
     let message = ""
     const bearer = bearerAuth({
       verifyToken: async (token, c) => {

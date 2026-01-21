@@ -1,4 +1,4 @@
-name = "cfw-bun-hono-drizzle"
+name = "f2fpos-backend"
 compatibility_date = "2023-12-01"
 compatibility_flags = [ "nodejs_compat" ]
 
@@ -6,11 +6,11 @@ compatibility_flags = [ "nodejs_compat" ]
 [vars]
 KV_STORE="IDB_KEYVAL"
 MY_VAR = "my-variable"
-JWT_SECRET = "default-secret-for-testing"
+JWT_SECRET = "kosong-adalah-berisi-berisi-adalah-kosong"
 JWT_FINGERPRINT_COOKIE_NAME="__Secure-Fgp"
 JWT_FINGERPRINT_REFRESH_COOKIE_NAME="__Secure-Fgp-Refresh"
 
-ALLOWED_ORIGINS = "https://localhost:5173"
+ALLOWED_ORIGINS = "http://127.0.0.1:5173,http://localhost:5173,https://f2fpos.pages.dev,https://f2fpos.jonisteak.com"
 
 # Token expiration in minutes
 REFRESH_TOKEN_EXPIRATION = 1440
@@ -27,7 +27,7 @@ id = "5bd608872f1942f69f463173086e3842"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "f2fpos"
+database_name = "f2fposv1"
 database_id = "9b9c3f4c-e50f-4194-9a53-4923c8d13eb7"
 
 # [ai]

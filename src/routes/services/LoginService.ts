@@ -101,6 +101,11 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
     token: token.token,
     refreshToken: refreshToken.token,
     roles,
+    user: {
+      username: userRow.username,
+      email: userRow.email,
+      id: userRow.id,
+    },
   })
 })
 export default app
