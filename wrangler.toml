@@ -18,16 +18,16 @@ TOKEN_EXPIRATION = 5
 
 [[kv_namespaces]]
 binding = "IDB_KEYVAL"
-id = "cf9d431401ca4c918c8629472f3af5d2"
+id = "5bd608872f1942f69f463173086e3842"
 
 # [[r2_buckets]]
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"
 
 [[d1_databases]]
-binding = "DB"  
-database_name = "cfw-bun-hono-drizzle"
-database_id = "cd7fe58e-7903-456b-a31f-9ef9a78af821"
+binding = "DB"
+database_name = "f2fpos"
+database_id = "9b9c3f4c-e50f-4194-9a53-4923c8d13eb7"
 
 # [ai]
 # binding = "AI"

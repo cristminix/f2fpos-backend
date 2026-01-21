@@ -1,7 +1,8 @@
 {
   "name": "f2fpos-backend",
   "scripts": {
-    "dev": "wrangler dev src/index.ts --local-protocol https --https-key-path .cert/key.pem --https-cert-path .cert/cert.pem",
+    "dev:secure": "wrangler dev src/index.ts --local-protocol https --https-key-path .cert/key.pem --https-cert-path .cert/cert.pem",
+    "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:up": "drizzle-kit up",
@@ -16,7 +17,8 @@
     "isomorphic-textencoder": "^1.0.1",
     "json-bufferify": "^0.2.3",
     "just-debounce-it": "^3.2.0",
-    "just-once": "^2.2.0"
+    "just-once": "^2.2.0",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260120.0",
