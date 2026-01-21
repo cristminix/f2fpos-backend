@@ -1,0 +1,33 @@
+name = "cfw-bun-hono-drizzle"
+compatibility_date = "2023-12-01"
+compatibility_flags = [ "nodejs_compat" ]
+
+
+[vars]
+KV_STORE="IDB_KEYVAL"
+MY_VAR = "my-variable"
+JWT_FINGERPRINT_COOKIE_NAME="__Secure-Fgp"
+JWT_FINGERPRINT_REFRESH_COOKIE_NAME="__Secure-Fgp-Refresh"
+
+ALLOWED_ORIGINS = "https://localhost:5173"
+
+# Token expiration in minutes
+REFRESH_TOKEN_EXPIRATION = 1440
+TOKEN_EXPIRATION = 5
+
+
+[[kv_namespaces]]
+binding = "IDB_KEYVAL"
+id = "cf9d431401ca4c918c8629472f3af5d2"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+[[d1_databases]]
+binding = "DB"  
+database_name = "cfw-bun-hono-drizzle"
+database_id = "cd7fe58e-7903-456b-a31f-9ef9a78af821"
+
+# [ai]
+# binding = "AI"

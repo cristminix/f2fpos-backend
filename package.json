@@ -1,0 +1,29 @@
+{
+  "name": "f2fpos-backend",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts --local-protocol https --https-key-path .cert/key.pem --https-cert-path .cert/cert.pem",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:up": "drizzle-kit up",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.12.5",
+    "@hono-dev/zod-body-validator": "^0.1.1",
+    "@libsql/client": "^0.17.0",
+    "drizzle-orm": "^0.45.1",
+    "hono": "^4.11.4",
+    "isomorphic-textencoder": "^1.0.1",
+    "json-bufferify": "^0.2.3",
+    "just-debounce-it": "^3.2.0",
+    "just-once": "^2.2.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260120.0",
+    "@vitest/ui": "^4.0.17",
+    "drizzle-kit": "^0.31.8",
+    "http-server": "^14.1.1",
+    "vitest": "^4.0.17",
+    "wrangler": "^4.59.3"
+  }
+}
