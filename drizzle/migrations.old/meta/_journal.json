@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1719908714614,
+      "tag": "0000_steep_captain_universe",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1769004604932,
+      "tag": "0001_sticky_roulette",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1769046312536,
+      "tag": "0002_bright_the_enforcers",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1769051534489,
+      "tag": "0003_lumpy_toro",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1769051587678,
+      "tag": "0004_crazy_psylocke",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1769070550467,
+      "tag": "0005_marvelous_ted_forrester",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1769089394890,
+      "tag": "0006_dapper_grandmaster",
+      "breakpoints": true
+    }
+  ]
+}
