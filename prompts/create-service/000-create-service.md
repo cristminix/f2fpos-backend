@@ -1,0 +1,8 @@
+- define table name
+- define table columns
+- create schema definitions
+- run `pnpm db:generate`
+- run `pnpm db:up`
+- execute npx wrangler d1 execute DB --file=drizzle/migrations/000X_migration_name.sql
+- execute npx wrangler d1 execute DB --file=drizzle/migrations/000X_migration_name.sql --remote
+- create model class with `M` prefix based on camel case of table name `src/global/models`

@@ -15,6 +15,13 @@
       "when": 1769004604932,
       "tag": "0001_sticky_roulette",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1769046312536,
+      "tag": "0002_bright_the_enforcers",
+      "breakpoints": true
     }
   ]
 }
