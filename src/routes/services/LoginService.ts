@@ -98,7 +98,7 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
   return c.json({
     success: true,
     message: "login success",
-    token: token.token,
+    accessToken: token.token,
     refreshToken: refreshToken.token,
     roles,
     user: {

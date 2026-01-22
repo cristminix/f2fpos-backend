@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "fc1d2180-7e4e-44eb-87fa-7ca22b5b8ba8",
+  "id": "3c12aa83-0192-4ef8-b289-ccc2441e60f4",
   "prevId": "bf3b5c33-f6ba-4852-b972-aca1a87ec1f0",
   "tables": {
     "outlets": {
@@ -127,6 +127,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "outletId": {
+          "name": "outletId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",

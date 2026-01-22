@@ -22,6 +22,20 @@
       "when": 1769046312536,
       "tag": "0002_bright_the_enforcers",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1769051534489,
+      "tag": "0003_lumpy_toro",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1769051587678,
+      "tag": "0004_crazy_psylocke",
+      "breakpoints": true
     }
   ]
 }

@@ -12,6 +12,7 @@ const outletCreateValidationSchema = z.object({
   businessType: z.string(),
   logo: z.string().optional(),
   tax: z.number().optional(),
+  settings: z.string().optional(),
 })
 
 const outletUpdateValidationSchema = z.object({
@@ -21,6 +22,7 @@ const outletUpdateValidationSchema = z.object({
   businessType: z.string().optional(),
   logo: z.string().optional(),
   tax: z.number().optional(),
+  settings: z.string().optional(),
 })
 
 const app = createHonoWithBindings()
@@ -57,7 +59,7 @@ app.get("/:id", async (c) => {
 // Create new outlet
 app.post("/", zBodyValidator(outletCreateValidationSchema), async (c) => {
   const outletData = c.req.valid("form")
-
+  console.log({ outletData })
   const mOutlet = new MOutlet(c)
 
   try {

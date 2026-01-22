@@ -12,6 +12,7 @@ CREATE TABLE `outlets` (
 --> statement-breakpoint
 CREATE TABLE `product_category` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`outletId` integer NOT NULL,
 	`name` text(256) NOT NULL,
 	`timestamp` text DEFAULT CURRENT_TIMESTAMP NOT NULL
 );

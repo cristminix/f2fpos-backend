@@ -1,15 +1,13 @@
-// import { sendLoginRequest } from "./fn/sendLoginRequest"
-// import { loadJson, saveJson } from "./fn/jsonUtils"
-// import { JSON_CRED_PATH } from "./config"
+import { loginData } from "./config"
 import { getAccessToken } from "./fn/getAccessToken"
-const loginData = {
-  email: "demo@example.com",
-  password: "password",
-}
+import { seedOutlet } from "./seed/seedOutlet"
+import { seedProductCategory } from "./seed/seedProductCategory"
 
 const main = async () => {
-  const accessToken = await getAccessToken(loginData)
-  console.log({ accessToken })
+  // const accessToken = await getAccessToken(loginData)
+  // console.log({ accessToken })
+  await seedOutlet()
+  await seedProductCategory()
 }
 
 main().catch((e) => console.error(e))

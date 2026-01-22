@@ -56,16 +56,6 @@ export const posts = sqliteTable("posts", {
     .notNull(),
 })
 
-export const product_categories = sqliteTable("product_category", {
-  // id is set on insert, incrementing
-  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-  name: text("name", { length: 256 }).notNull(),
-
-  // timestamp is set on insert
-  timestamp: text("timestamp")
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-})
 export const outlets = sqliteTable("outlets", {
   // id is set on insert, incrementing
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
@@ -82,7 +72,18 @@ export const outlets = sqliteTable("outlets", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
 })
+export const product_categories = sqliteTable("product_category", {
+  // id is set on insert, incrementing
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  outletId: integer("outletId", { mode: "number" }).notNull(),
 
+  name: text("name", { length: 256 }).notNull(),
+
+  // timestamp is set on insert
+  timestamp: text("timestamp")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+})
 export type Outlet = InferModel<typeof outlets>
 export type User = InferModel<typeof users>
 export type UserRole = InferModel<typeof user_roles>

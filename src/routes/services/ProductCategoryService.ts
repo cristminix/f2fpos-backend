@@ -7,10 +7,12 @@ import MProductCategory from "../../global/models/MProductCategory"
 
 const productCategoryCreateValidationSchema = z.object({
   name: z.string(),
+  outletId: z.number(),
 })
 
 const productCategoryUpdateValidationSchema = z.object({
   name: z.string().optional(),
+  outletId: z.number().optional(),
 })
 
 const app = createHonoWithBindings()
@@ -55,7 +57,7 @@ app.post(
     const categoryData = c.req.valid("form")
 
     const mProductCategory = new MProductCategory(c)
-
+    console.log({ categoryData })
     try {
       // Check if category with this name already exists
       const existingCategory = await mProductCategory.getByName(
