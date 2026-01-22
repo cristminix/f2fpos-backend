@@ -1,68 +1,69 @@
-import { and, eq } from "drizzle-orm"
-import { z } from "zod"
-import { zBodyValidator } from "@hono-dev/zod-body-validator"
-import { createHonoWithBindings } from "../../global/fn/createHonoWithBindings"
-import { product_categories } from "../../db/schema"
-import MProductCategory from "../../global/models/MProductCategory"
+import { and, eq } from "drizzle-orm";
+import { z } from "zod";
+import { zBodyValidator } from "@hono-dev/zod-body-validator";
+import { createHonoWithBindings } from "../../global/fn/createHonoWithBindings";
+import { product_categories } from "../../db/schema";
+import MProductCategory from "../../global/models/MProductCategory";
 
 const productCategoryCreateValidationSchema = z.object({
   name: z.string(),
   outletId: z.number(),
-})
+});
 
 const productCategoryUpdateValidationSchema = z.object({
   name: z.string().optional(),
   outletId: z.number().optional(),
-})
+});
 
-const app = createHonoWithBindings()
+const app = createHonoWithBindings();
 
 // Get all product categories
 app.get("/", async (c) => {
-  const mProductCategory = new MProductCategory(c)
+  const mProductCategory = new MProductCategory(c);
 
-  const { limit = 10, page = 1 } = c.req.query()
+  const { limit = 10, page = 1 } = c.req.query();
 
-  const result = await mProductCategory.getList(Number(limit), Number(page))
+  const result = await mProductCategory.getList(Number(limit), Number(page));
 
-  return c.json(result)
-})
+  return c.json(result);
+});
 
 // Get product category by ID
 app.get("/:id", async (c) => {
-  const id = parseInt(c.req.param("id"))
+  const id = parseInt(c.req.param("id"));
 
   if (isNaN(id)) {
-    return c.json({ success: false, message: "Invalid ID" }, 400)
+    return c.json({ success: false, message: "Invalid ID" }, 400);
   }
 
-  const mProductCategory = new MProductCategory(c)
-  const category = await mProductCategory.getRow(id)
+  const mProductCategory = new MProductCategory(c);
+  const category = await mProductCategory.getRow(id);
 
   if (!category) {
     return c.json(
       { success: false, message: "Product category not found" },
       404,
-    )
+    );
   }
 
-  return c.json({ success: true, data: category })
-})
+  return c.json({ success: true, data: category });
+});
 
 // Create new product category
 app.post(
   "/",
   zBodyValidator(productCategoryCreateValidationSchema),
   async (c) => {
-    const categoryData = c.req.valid("form")
+    const categoryData = c.req.valid("form");
 
-    const mProductCategory = new MProductCategory(c)
-    console.log({ categoryData })
+    const mProductCategory = new MProductCategory(c);
+    console.log({ categoryData });
     try {
       // Check if category with this name already exists
-      const existingCategory = await mProductCategory.getByName(
+      const existingCategory = await mProductCategory.getByNameAndOutletId(
         categoryData.name,
-      )
+        categoryData.outletId,
+      );
       if (existingCategory) {
         return c.json(
           {
@@ -70,95 +71,95 @@ app.post(
             message: "Product category with this name already exists",
           },
           409,
-        )
+        );
       }
 
-      const result = await mProductCategory.create(categoryData)
-      return c.json({ success: true, data: result })
+      const [result] = await mProductCategory.create(categoryData);
+      return c.json({ success: true, data: result });
     } catch (error: any) {
-      return c.json({ success: false, message: error.message }, 500)
+      return c.json({ success: false, message: error.message }, 500);
     }
   },
-)
+);
 
 // Update product category by ID
 app.put(
   "/:id",
   zBodyValidator(productCategoryUpdateValidationSchema),
   async (c) => {
-    const id = parseInt(c.req.param("id"))
+    const id = parseInt(c.req.param("id"));
 
     if (isNaN(id)) {
-      return c.json({ success: false, message: "Invalid ID" }, 400)
+      return c.json({ success: false, message: "Invalid ID" }, 400);
     }
 
-    const categoryData = c.req.valid("form")
+    const categoryData = c.req.valid("form");
 
-    const mProductCategory = new MProductCategory(c)
+    const mProductCategory = new MProductCategory(c);
 
     // Check if category exists
-    const existingCategory = await mProductCategory.getRow(id)
+    const existingCategory = await mProductCategory.getRow(id);
     if (!existingCategory) {
       return c.json(
         { success: false, message: "Product category not found" },
         404,
-      )
+      );
     }
 
     try {
-      const result = await mProductCategory.update(id, categoryData)
-      return c.json({ success: true, data: result })
+      const result = await mProductCategory.update(id, categoryData);
+      return c.json({ success: true, data: result });
     } catch (error: any) {
-      return c.json({ success: false, message: error.message }, 500)
+      return c.json({ success: false, message: error.message }, 500);
     }
   },
-)
+);
 
 // Delete product category by ID
 app.delete("/:id", async (c) => {
-  const id = parseInt(c.req.param("id"))
+  const id = parseInt(c.req.param("id"));
 
   if (isNaN(id)) {
-    return c.json({ success: false, message: "Invalid ID" }, 400)
+    return c.json({ success: false, message: "Invalid ID" }, 400);
   }
 
-  const mProductCategory = new MProductCategory(c)
+  const mProductCategory = new MProductCategory(c);
 
   // Check if category exists
-  const existingCategory = await mProductCategory.getRow(id)
+  const existingCategory = await mProductCategory.getRow(id);
   if (!existingCategory) {
     return c.json(
       { success: false, message: "Product category not found" },
       404,
-    )
+    );
   }
 
   try {
-    const result = await mProductCategory.delete(id, existingCategory)
-    return c.json({ success: true, data: result })
+    const result = await mProductCategory.delete(id, existingCategory);
+    return c.json({ success: true, data: result });
   } catch (error: any) {
-    return c.json({ success: false, message: error.message }, 500)
+    return c.json({ success: false, message: error.message }, 500);
   }
-})
+});
 
 // Get product category by name
 app.get("/by-name/:name", async (c) => {
-  const name = c.req.param("name")
+  const name = c.req.param("name");
 
-  const mProductCategory = new MProductCategory(c)
+  const mProductCategory = new MProductCategory(c);
 
   try {
-    const category = await mProductCategory.getByName(name)
+    const category = await mProductCategory.getByName(name);
     if (!category) {
       return c.json(
         { success: false, message: "Product category not found" },
         404,
-      )
+      );
     }
-    return c.json({ success: true, data: category })
+    return c.json({ success: true, data: category });
   } catch (error: any) {
-    return c.json({ success: false, message: error.message }, 500)
+    return c.json({ success: false, message: error.message }, 500);
   }
-})
+});
 
-export default app
+export default app;

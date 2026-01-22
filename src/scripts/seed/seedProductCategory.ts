@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "../config"
-import { doFetchRequest } from "../fn/doFetchRequest"
+import { API_BASE_URL } from "../config";
+import { doFetchRequest } from "../fn/doFetchRequest";
 
 export async function seedProductCategory() {
   const data = [
@@ -13,8 +13,8 @@ export async function seedProductCategory() {
     { name: "Buku & Alat Tulis" },
     { name: "Mainan & Hobi" },
     { name: "Perhiasan & Aksesori" },
-  ]
-  const outletId = 1
+  ];
+  const outletId = 1;
   for (const category of data) {
     try {
       const response = await doFetchRequest(
@@ -27,23 +27,23 @@ export async function seedProductCategory() {
             ...category,
           }),
         },
-      )
+      );
 
-      const result: any = await response.json()
+      const result: any = await response.json();
       // console.log("Login Response:", result)
 
       if (response.ok) {
         // console.log("Login successful!")
-        return result
+        // return result
       } else {
-        console.error("Seed Error:", result.message || "Unknown error")
-        return null
+        console.error("Seed Error:", result.message || "Unknown error");
+        // return null
       }
     } catch (error) {
-      console.error("Error during update token request:", error)
-      return null
+      console.error("Error during update token request:", error);
+      // return null
     }
   }
 
-  return data
+  return data;
 }

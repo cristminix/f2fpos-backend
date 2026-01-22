@@ -1,17 +1,19 @@
-import { product_categories } from "../../db/schema"
-import { eq } from "drizzle-orm"
-import DrizzleModel from "./DrizzleModel"
+import { product_categories } from "../../db/schema";
+import { and, eq } from "drizzle-orm";
+import DrizzleModel from "./DrizzleModel";
 
 class MProductCategory extends DrizzleModel {
-  schema = product_categories
+  schema = product_categories;
 
-  getByName(name: string) {
+  getByNameAndOutletId(name: string, outletId: number) {
     return this.db
       .select()
       .from(this.schema)
-      .where(eq(this.schema.name, name))
-      .get(0)
+      .where(
+        and(eq(this.schema.name, name), eq(this.schema.outletId, outletId)),
+      )
+      .get(0);
   }
 }
 
-export default MProductCategory
+export default MProductCategory;
