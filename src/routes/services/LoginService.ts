@@ -15,6 +15,7 @@ import { validateRefreshToken } from "../../middlewares/jwt-refresh-token-valida
 import MUser from "../../global/models/MUser"
 import MUserRole from "../../global/models/MUserRole"
 import MOutlet from "../../global/models/MOutlet"
+import MUserInfo from "../../global/models/MUserInfo"
 const registerValidationSchema = z.object({
   username: z.string(),
   password: z.string(),
@@ -63,6 +64,7 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
   const mUser = new MUser(c)
   const mUserRole = new MUserRole(c)
   const mOutlet = new MOutlet(c)
+  const mUserInfo = new MUserInfo(c)
   let userRow = await mUser.getRow({ email })
 
   if (!userRow) {
@@ -94,6 +96,7 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
   const userOutles = (await mOutlet.getOutletsByUserId(userRow.id)).map(
     ({ id, name }) => ({ id, name }),
   )
+  const userInfo = await mUserInfo.getRowByUserId(userRow.id)
   try {
     roles = JSON.parse(userRoles.roles)
   } catch (error) {}
@@ -108,6 +111,8 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
       username: userRow.username,
       email: userRow.email,
       id: userRow.id,
+      avatar: userInfo.avatar,
+      displayName: userInfo.displayName,
     },
   })
 })

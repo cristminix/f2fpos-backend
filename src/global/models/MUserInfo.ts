@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm"
-import { user_roles } from "../../db/schema"
+import { user_info } from "../../db/schema"
 import DrizzleModel from "./DrizzleModel"
-class MUserRole extends DrizzleModel {
-  schema = user_roles
+class MUserInfo extends DrizzleModel {
+  schema = user_info
 
   getRowByUserId(userId: number) {
     return this.db
@@ -12,4 +12,4 @@ class MUserRole extends DrizzleModel {
       .get(0)
   }
 }
-export default MUserRole
+export default MUserInfo
