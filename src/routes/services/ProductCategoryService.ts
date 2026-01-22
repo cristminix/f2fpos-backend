@@ -21,7 +21,7 @@ const app = createHonoWithBindings();
 app.get("/", async (c) => {
   const mProductCategory = new MProductCategory(c);
 
-  const { limit = 10, page = 1 } = c.req.query();
+  const { limit = 1000, page = 1 } = c.req.query();
 
   const result = await mProductCategory.getList(Number(limit), Number(page));
 
