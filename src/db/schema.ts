@@ -84,6 +84,9 @@ export const product_categories = sqliteTable("product_category", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
 })
+
+//
+
 export type Outlet = InferModel<typeof outlets>
 export type User = InferModel<typeof users>
 export type UserRole = InferModel<typeof user_roles>

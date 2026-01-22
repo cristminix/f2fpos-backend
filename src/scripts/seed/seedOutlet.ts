@@ -4,7 +4,7 @@ import { doFetchRequest } from "../fn/doFetchRequest"
 export async function seedOutlet() {
   const data = [
     {
-      name: "Elektronik",
+      name: "F2F Mart",
       address: "Jln Kehidupan No. 666",
       businessType: "retail",
       logo: "no-logo",

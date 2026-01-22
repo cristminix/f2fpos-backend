@@ -9,12 +9,12 @@ import { encryptPassword } from "../../global/fn/encryptPassword"
 import { generateAccessToken } from "../../global/fn/generateAccessToken"
 import { generateRefreshToken } from "../../global/fn/generateRefreshToken"
 // import { randomBytes, createHash } from "node:crypto"
-import { users } from "../../db/schema"
+import { users, outlets } from "../../db/schema"
 import { validateRefreshToken } from "../../middlewares/jwt-refresh-token-validation"
 // import {validateAccessToken} from "../middlewares/jwt-validation-api"
 import MUser from "../../global/models/MUser"
 import MUserRole from "../../global/models/MUserRole"
-
+import MOutlet from "../../global/models/MOutlet"
 const registerValidationSchema = z.object({
   username: z.string(),
   password: z.string(),
@@ -62,7 +62,7 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
   const { email, password } = user
   const mUser = new MUser(c)
   const mUserRole = new MUserRole(c)
-
+  const mOutlet = new MOutlet(c)
   let userRow = await mUser.getRow({ email })
 
   if (!userRow) {
@@ -91,7 +91,9 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
     userRow.id,
     c.env.REFRESH_TOKEN_EXPIRATION,
   )
-
+  const userOutles = (await mOutlet.getOutletsByUserId(userRow.id)).map(
+    ({ id, name }) => ({ id, name }),
+  )
   try {
     roles = JSON.parse(userRoles.roles)
   } catch (error) {}
@@ -101,6 +103,7 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
     accessToken: token.token,
     refreshToken: refreshToken.token,
     roles,
+    outlets: userOutles,
     user: {
       username: userRow.username,
       email: userRow.email,

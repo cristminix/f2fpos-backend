@@ -58,7 +58,7 @@ export const getAccessToken = async (loginData: any) => {
     credential.accessToken = accessToken
     credential.refreshToken = newRefreshToken
     await saveJson(JSON_CRED_PATH, credential)
-    console.log({ credential })
+    // console.log({ credential })
   }
 
   return credential.accessToken
