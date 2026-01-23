@@ -14,6 +14,14 @@ class MProductCategory extends DrizzleModel {
       )
       .get(0);
   }
+
+  getByName(name: string) {
+    return this.db
+      .select()
+      .from(this.schema)
+      .where(eq(this.schema.name, name))
+      .get(0);
+  }
 }
 
 export default MProductCategory;

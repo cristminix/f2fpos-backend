@@ -21,9 +21,24 @@ const app = createHonoWithBindings();
 app.get("/", async (c) => {
   const mProductCategory = new MProductCategory(c);
 
-  const { limit = 1000, page = 1 } = c.req.query();
+  const { limit = 1000, page = 1, sortField, sortOrder } = c.req.query();
 
-  const result = await mProductCategory.getList(Number(limit), Number(page));
+  // Build order object if sortField and sortOrder are provided
+  let order = null;
+  if (sortField && sortOrder) {
+    // Validate sortField to ensure it's a valid field in the schema
+    const validSortFields = ["id", "name", "outletId", "timestamp"];
+    if (validSortFields.includes(sortField)) {
+      const direction = sortOrder.toLowerCase() === "desc" ? "desc" : "asc";
+      order = { [sortField]: direction };
+    }
+  }
+
+  const result = await mProductCategory.getList(
+    Number(limit),
+    Number(page),
+    order, // Pass the order object to getList
+  );
 
   return c.json(result);
 });
@@ -99,6 +114,8 @@ app.put(
 
     // Check if category exists
     const existingCategory = await mProductCategory.getRow(id);
+    // console.log({ existingCategory });
+
     if (!existingCategory) {
       return c.json(
         { success: false, message: "Product category not found" },
@@ -107,7 +124,8 @@ app.put(
     }
 
     try {
-      const result = await mProductCategory.update(id, categoryData);
+      delete categoryData.outletId;
+      const [result] = await mProductCategory.update(id, categoryData);
       return c.json({ success: true, data: result });
     } catch (error: any) {
       return c.json({ success: false, message: error.message }, 500);
@@ -135,13 +153,13 @@ app.delete("/:id", async (c) => {
   }
 
   try {
-    const result = await mProductCategory.delete(id, existingCategory);
+    const [result] = await mProductCategory.delete(id, existingCategory);
     return c.json({ success: true, data: result });
   } catch (error: any) {
     return c.json({ success: false, message: error.message }, 500);
   }
 });
-
+/*
 // Get product category by name
 app.get("/by-name/:name", async (c) => {
   const name = c.req.param("name");
@@ -161,5 +179,5 @@ app.get("/by-name/:name", async (c) => {
     return c.json({ success: false, message: error.message }, 500);
   }
 });
-
+ */
 export default app;

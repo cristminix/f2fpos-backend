@@ -10,7 +10,8 @@ class DrizzleModel extends DrizzleBaseModel {
     return await this.db
       .update(this.schema)
       .set(row)
-      .where(eq(this.schema[this.pk], pk));
+      .where(eq(this.schema[this.pk], pk))
+      .returning();
   }
   async updateByFieldFilter(field, value, row_) {
     const row = { ...row_ };
@@ -24,7 +25,8 @@ class DrizzleModel extends DrizzleBaseModel {
   async delete(pk, row) {
     return await this.db
       .delete(this.schema)
-      .where(eq(this.schema[this.pk], pk));
+      .where(eq(this.schema[this.pk], pk))
+      .returning();
   }
   async deleteWhere(field, value) {
     return await this.db
