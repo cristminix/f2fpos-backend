@@ -1,13 +1,13 @@
 # Variable Definitions
 
-- `schema_name`: product
-- `columns`: ["id","outletId","code","name","description","image","unit","alternateUnit","minQty"]
+- `schema_name`: stock_inventory
+- `columns`: ["id","outletId","itemType","minQty","qty","notes"]
 - `primary_key`: id
-- `service_name` : ProductService
+- `service_name` : StockInventoryService
 
 # Schema Creation Command
 
-add schema with name `{schema_name}` the columns only contains {columns} where {primary_key} as pk `minQty` is number 
+add schema with name `{schema_name}` the columns only contains {columns} where {primary_key} as pk
 
 # Model Creation Command
 

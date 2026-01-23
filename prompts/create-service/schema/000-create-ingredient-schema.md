@@ -1,7 +1,7 @@
 # Variable Definitions
 
 - `schema_name`: ingredient
-- `columns`: ["id","name","outletId"]
+- `columns`: ["id","name","code","outletId"]
 - `primary_key`: id
 - `service_name` : IngredientService
 

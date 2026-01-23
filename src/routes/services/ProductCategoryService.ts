@@ -30,6 +30,7 @@ app.get("/", async (c) => {
     const validSortFields = ["id", "name", "outletId", "timestamp"];
     if (validSortFields.includes(sortField)) {
       const direction = sortOrder.toLowerCase() === "desc" ? "desc" : "asc";
+      //@ts-ignore
       order = { [sortField]: direction };
     }
   }

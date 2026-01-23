@@ -8,6 +8,20 @@
       "when": 1769094243942,
       "tag": "0000_bizarre_purple_man",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1769146452432,
+      "tag": "0001_far_night_thrasher",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1769146693018,
+      "tag": "0002_mysterious_shadowcat",
+      "breakpoints": true
     }
   ]
 }
