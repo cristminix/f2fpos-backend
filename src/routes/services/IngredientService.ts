@@ -3,17 +3,28 @@ import { z } from "zod";
 import { zBodyValidator } from "@hono-dev/zod-body-validator";
 import { createHonoWithBindings } from "../../global/fn/createHonoWithBindings";
 import MIngredient from "../../global/models/MIngredient";
+import { MStockInventory } from "../../global/models/MStockInventory";
 
 const ingredientCreateValidationSchema = z.object({
   name: z.string(),
   code: z.string(),
   outletId: z.number(),
+  description: z.string().optional().default(""),
+  unit: z.string().optional().default(""),
+  alternateUnit: z.string().optional().default(""),
+  qty: z.number().optional().default(0),
+  minQty: z.number().optional().default(0),
 });
 
 const ingredientUpdateValidationSchema = z.object({
   name: z.string().optional(),
   code: z.string().optional(),
   outletId: z.number().optional(),
+  description: z.string().optional(),
+  unit: z.string().optional(),
+  alternateUnit: z.string().optional(),
+  qty: z.number().optional(),
+  minQty: z.number().optional(),
 });
 
 const app = createHonoWithBindings();
@@ -22,13 +33,29 @@ const app = createHonoWithBindings();
 app.get("/", async (c) => {
   const mIngredient = new MIngredient(c);
 
-  const { limit = 1000, page = 1, sortField, sortOrder } = c.req.query();
+  const {
+    limit = 10,
+    page = 1,
+    sortField,
+    sortOrder,
+    outletId,
+  } = c.req.query();
 
   // Build order object if sortField and sortOrder are provided
   let order = null;
   if (sortField && sortOrder) {
     // Validate sortField to ensure it's a valid field in the schema
-    const validSortFields = ["id", "name", "code", "outletId", "timestamp"];
+    const validSortFields = [
+      "id",
+      "name",
+      "code",
+      "outletId",
+      "timestamp",
+      "qty",
+      "minQty",
+      "unit",
+      "alternateUnit",
+    ];
     if (validSortFields.includes(sortField)) {
       const direction = sortOrder.toLowerCase() === "desc" ? "desc" : "asc";
       //@ts-ignore
@@ -36,7 +63,10 @@ app.get("/", async (c) => {
     }
   }
 
-  const result = await mIngredient.getList(
+  const result = await mIngredient.getListWithStock(
+    //@ts-ignore
+    outletId,
+
     Number(limit),
     Number(page),
     order, // Pass the order object to getList
@@ -65,13 +95,47 @@ app.get("/:id", async (c) => {
 
 // Create new ingredient
 app.post("/", zBodyValidator(ingredientCreateValidationSchema), async (c) => {
-  const ingredientData = c.req.valid("form");
-
+  const ingredientFormData = c.req.valid("form");
+  const {
+    name,
+    code,
+    outletId,
+    unit,
+    alternateUnit,
+    description,
+    qty,
+    minQty,
+  } = ingredientFormData;
+  const ingredientData = {
+    name,
+    code,
+    outletId,
+    unit,
+    alternateUnit,
+    description,
+    timestamp: Date.now(),
+  };
   const mIngredient = new MIngredient(c);
   console.log({ ingredientData });
+  let existingIngredient;
+
   try {
-    // Check if ingredient with this code already exists in the same outlet
-    const existingIngredient = await mIngredient.getByCode(ingredientData.code);
+    let fieldCheck = "name";
+    if (ingredientData.name.length > 0) {
+      // Check if ingredient with this code already exists in the same outlet
+      existingIngredient = await mIngredient.getByNameAndOutletId(
+        ingredientData.name,
+        ingredientData.outletId,
+      );
+    }
+    if (ingredientData.code.length > 0) {
+      fieldCheck = "code";
+      // Check if ingredient with this code already exists in the same outlet
+      existingIngredient = await mIngredient.getByCodeAndOutletId(
+        ingredientData.code,
+        ingredientData.outletId,
+      );
+    }
     if (
       existingIngredient &&
       existingIngredient.outletId === ingredientData.outletId
@@ -79,14 +143,31 @@ app.post("/", zBodyValidator(ingredientCreateValidationSchema), async (c) => {
       return c.json(
         {
           success: false,
-          message: "Ingredient with this code already exists in this outlet",
+          message: `Bahan baku dengan ${fieldCheck === "name" ? "nama" : "kode"} ${fieldCheck === "name" ? name : code} sudah ada untuk outlet ini.`, // "Ingredient with this code already exists in this outlet",
         },
         409,
       );
     }
 
-    const [result] = await mIngredient.create(ingredientData);
-    return c.json({ success: true, data: result });
+    let [ingredientRow] = await mIngredient.create(ingredientData);
+    if (ingredientRow) {
+      const mStockInventory = new MStockInventory(c);
+      const [inventory] = await mStockInventory.create({
+        itemType: "ingredient",
+        itemId: ingredientRow.id,
+        outletId,
+        qty,
+        minQty,
+        notes: "",
+        timestamp: Date.now(),
+      });
+      ingredientRow = {
+        ...ingredientRow,
+        qty: inventory.qty,
+        minQty: inventory.minQty,
+      };
+    }
+    return c.json({ success: true, data: ingredientRow });
   } catch (error: any) {
     return c.json({ success: false, message: error.message }, 500);
   }

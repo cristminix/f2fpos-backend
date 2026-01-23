@@ -21,7 +21,13 @@ const app = createHonoWithBindings();
 app.get("/", async (c) => {
   const mProductCategory = new MProductCategory(c);
 
-  const { limit = 1000, page = 1, sortField, sortOrder } = c.req.query();
+  const {
+    limit = 10,
+    page = 1,
+    sortField,
+    sortOrder,
+    outletId,
+  } = c.req.query();
 
   // Build order object if sortField and sortOrder are provided
   let order = null;
@@ -38,7 +44,9 @@ app.get("/", async (c) => {
   const result = await mProductCategory.getList(
     Number(limit),
     Number(page),
-    order, // Pass the order object to getList
+    order,
+    //@ts-ignore
+    { outletId }, // Pass the order object to getList
   );
 
   return c.json(result);
