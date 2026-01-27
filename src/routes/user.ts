@@ -1,27 +1,30 @@
 import { createHonoWithBindings } from "../global/fn/createHonoWithBindings"
 import { drizzle } from "drizzle-orm/d1"
 import { users } from "../db/schema"
-
+import { validateUserRoles } from "../middlewares/jwt-validate-user-roles"
+import { isInAcl } from "../global/fn/isInAcl"
 const app = createHonoWithBindings()
-
-app.get("/", async (c) => {
-  //@ts-ignore
-
-  const jwt = c.get("jwt")
-  console.log({ jwt })
-  const db = drizzle(c.env.DB)
-  const result = await db
-    .select({
-      id: users.id,
-      username: users.username,
-      email: users.email,
+import { acls as userRouteAcls } from "./acls/users"
+const getListRoutePath = "/getList"
+const userListAcls = isInAcl(getListRoutePath, userRouteAcls)
+app.get(
+  getListRoutePath,
+  async (c, next) => validateUserRoles(c, next, userListAcls),
+  async (c) => {
+    const db = drizzle(c.env.DB)
+    const result = await db
+      .select({
+        id: users.id,
+        username: users.username,
+        email: users.email,
+      })
+      .from(users)
+      .all()
+    return c.json({
+      success: true,
+      users: result,
     })
-    .from(users)
-    .all()
-  return c.json({
-    success: true,
-    users: result,
-  })
-})
+  },
+)
 
 export default app

@@ -80,7 +80,11 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
   }
   const userRoles = await mUserRole.getRow({ userId: userRow.id })
   let roles: any = {}
-  const token = await generateAccessToken(
+  let refreshToken, userOutles, userInfo, token
+  try {
+    roles = JSON.parse(userRoles.roles)
+  } catch (error) {}
+  token = await generateAccessToken(
     c.env.JWT_SECRET,
     userRow.id,
 
@@ -88,18 +92,15 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
     roles,
   )
 
-  const refreshToken = await generateRefreshToken(
+  refreshToken = await generateRefreshToken(
     c.env.JWT_SECRET,
     userRow.id,
     c.env.REFRESH_TOKEN_EXPIRATION,
   )
-  const userOutles = (await mOutlet.getOutletsByUserId(userRow.id)).map(
+  userOutles = (await mOutlet.getOutletsByUserId(userRow.id)).map(
     ({ id, name }) => ({ id, name }),
   )
-  const userInfo = await mUserInfo.getRowByUserId(userRow.id)
-  try {
-    roles = JSON.parse(userRoles.roles)
-  } catch (error) {}
+  userInfo = await mUserInfo.getRowByUserId(userRow.id)
   return c.json({
     success: true,
     message: "login success",

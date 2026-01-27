@@ -9,7 +9,7 @@ export async function generateAccessToken(secret, uid, exp, roles: any[] = []) {
     roles,
     exp: Math.floor(Date.now() / 1000) + 60 * exp,
   }
-
+  console.log({ payload })
   const token = await sign(payload, secret)
 
   return {

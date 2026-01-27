@@ -2,8 +2,11 @@ import { and, eq } from "drizzle-orm"
 import { z } from "zod"
 import { zBodyValidator } from "@hono-dev/zod-body-validator"
 import { createHonoWithBindings } from "../../global/fn/createHonoWithBindings"
-import { outlets } from "../../db/schema"
+
 import MOutlet from "../../global/models/MOutlet"
+import { acls as outletAcls } from "./acls/OutletService"
+import { isInAcl } from "../../global/fn/isInAcl"
+import { validateUserRoles } from "../../middlewares/jwt-validate-user-roles"
 
 const outletCreateValidationSchema = z.object({
   userId: z.number(),
@@ -28,15 +31,22 @@ const outletUpdateValidationSchema = z.object({
 const app = createHonoWithBindings()
 
 // Get all outlets
-app.get("/", async (c) => {
-  const mOutlet = new MOutlet(c)
+const outletListRoutePath = "/"
+const outletListAcls = isInAcl(outletListRoutePath, outletAcls)
+app.get(
+  outletListRoutePath,
+  async (c, next) => validateUserRoles(c, next, outletListAcls),
 
-  const { limit = 10, page = 1 } = c.req.query()
+  async (c) => {
+    const mOutlet = new MOutlet(c)
 
-  const result = await mOutlet.getList(Number(limit), Number(page))
+    const { limit = 10, page = 1 } = c.req.query()
 
-  return c.json(result)
-})
+    const result = await mOutlet.getList(Number(limit), Number(page))
+
+    return c.json(result)
+  },
+)
 
 // Get outlet by ID
 app.get("/:id", async (c) => {

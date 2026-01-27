@@ -16,7 +16,7 @@ export function applyJwtValidationApi(app) {
       verifyToken: async (token, c) => {
         try {
           const decodedToken = await verify(token, c.env.JWT_SECRET, "HS256")
-          console.log({ decodedToken })
+          // console.log({ decodedToken })
           c.set("jwt", decodedToken)
           return !!decodedToken
         } catch (e) {
@@ -53,7 +53,7 @@ export function applyJwtValidationApi(app) {
       else message = "Unauthorized"
       // console.error({ e })
     }
-    console.log({ result, message })
+    // console.log({ result, message })
     if (result) return result
     return c.json(
       {

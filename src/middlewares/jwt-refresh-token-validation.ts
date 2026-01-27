@@ -47,7 +47,7 @@ export const validateRefreshToken = async (c, next) => {
     // console.error(e)
   }
 
-  console.log(result, message)
+  // console.log(result, message)
   if (result) return result
 
   return c.json(
