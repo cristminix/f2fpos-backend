@@ -31,11 +31,16 @@ const outletUpdateValidationSchema = z.object({
 const app = createHonoWithBindings()
 
 // Get all outlets
-const outletListRoutePath = "/"
-const outletListAcls = isInAcl(outletListRoutePath, outletAcls)
+const outletListOrCreateRoutePath = "/"
+// const outletListAcls =
 app.get(
-  outletListRoutePath,
-  async (c, next) => validateUserRoles(c, next, outletListAcls),
+  outletListOrCreateRoutePath,
+  async (c, next) =>
+    validateUserRoles(
+      c,
+      next,
+      isInAcl(outletListOrCreateRoutePath, outletAcls, "get"),
+    ),
 
   async (c) => {
     const mOutlet = new MOutlet(c)
@@ -67,18 +72,28 @@ app.get("/:id", async (c) => {
 })
 
 // Create new outlet
-app.post("/", zBodyValidator(outletCreateValidationSchema), async (c) => {
-  const outletData = c.req.valid("form")
-  console.log({ outletData })
-  const mOutlet = new MOutlet(c)
+app.post(
+  outletListOrCreateRoutePath,
+  async (c, next) =>
+    validateUserRoles(
+      c,
+      next,
+      isInAcl(outletListOrCreateRoutePath, outletAcls, "post"),
+    ),
+  zBodyValidator(outletCreateValidationSchema),
+  async (c) => {
+    const outletData = c.req.valid("form")
+    console.log({ outletData })
+    const mOutlet = new MOutlet(c)
 
-  try {
-    const result = await mOutlet.create(outletData)
-    return c.json({ success: true, data: result })
-  } catch (error: any) {
-    return c.json({ success: false, message: error.message }, 500)
-  }
-})
+    try {
+      const result = await mOutlet.create(outletData)
+      return c.json({ success: true, data: result })
+    } catch (error: any) {
+      return c.json({ success: false, message: error.message }, 500)
+    }
+  },
+)
 
 // Update outlet by ID
 app.put("/:id", zBodyValidator(outletUpdateValidationSchema), async (c) => {
