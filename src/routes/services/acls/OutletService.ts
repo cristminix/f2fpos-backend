@@ -11,4 +11,22 @@ export const acls = {
       method: "post",
     },
   ],
+  "/:id": [
+    {
+      role: "outlet.read",
+      groups: ["group:admin", "group:owner"],
+      method: "get",
+    },
+    {
+      role: "outlet.update",
+      groups: ["group:admin", "group:owner"],
+      method: "put",
+    },
+
+    {
+      role: "outlet.delete",
+      groups: ["group:admin", "group:owner"],
+      method: "delete",
+    },
+  ],
 }
