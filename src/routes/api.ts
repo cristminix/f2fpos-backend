@@ -1,6 +1,6 @@
 import { createHonoWithBindings } from "../global/fn/createHonoWithBindings"
 import postRouter from "./post"
-import userRouter from "./user"
+import userRouter from "./services/UserService"
 import LoginServiceRouter from "./services/LoginService"
 import OutletServiceRouter from "./services/OutletService"
 import ProductCategoryServiceRouter from "./services/ProductCategoryService"
@@ -20,7 +20,7 @@ import { ProductStockService } from "./services/ProductStockService"
 const app = createHonoWithBindings()
 
 app.route("/posts", postRouter)
-app.route("/users", userRouter)
+app.route("/UserService", userRouter)
 app.route("/LoginService", LoginServiceRouter)
 app.route("/OutletService", OutletServiceRouter)
 app.route("/ProductCategoryService", ProductCategoryServiceRouter)

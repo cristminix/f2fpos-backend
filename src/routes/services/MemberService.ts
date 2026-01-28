@@ -1,8 +1,20 @@
 import { Hono } from "hono"
 import { MMember } from "../../global/models/MMember"
 import { createHonoWithBindings } from "../../global/fn/createHonoWithBindings"
+import { encryptPassword } from "../../global/fn/encryptPassword"
+import { z } from "zod"
+import { zBodyValidator } from "@hono-dev/zod-body-validator"
 
 const app = createHonoWithBindings()
+
+const createMemberSchema = z.object({
+  fullName: z.string().optional(),
+  email: z.string().email(),
+  phoneNumber: z.string().optional(),
+  password: z.string(),
+  memberType: z.string().optional(),
+  accountStatus: z.string().optional(),
+})
 
 // List
 app.get("/", async (c) => {
@@ -45,9 +57,29 @@ app.get("/:id", async (c) => {
 // Create
 app.post("/", async (c) => {
   const body = await c.req.json()
+  const validation = createMemberSchema.safeParse(body)
+  if (!validation.success) {
+    return c.json({ success: false, message: "Invalid input" }, 400)
+  }
+  //
   const model = new MMember(c)
-  const result = await model.create(body)
-  return c.json(result, 201)
+
+  // Check if email is already in use
+  const existingMember = await model.getRow({ email: validation.data.email })
+  if (existingMember) {
+    return c.json({ success: false, message: "Email already in use" }, 409)
+  }
+
+  const { password, ...rest } = validation.data
+  const passwordHash = await encryptPassword(password, c.env.JWT_SECRET)
+  const [data] = await model.create({
+    ...rest,
+    passwordHash,
+  })
+  return c.json(
+    { success: true, message: "Member created successfully", data },
+    201,
+  )
 })
 
 // Update

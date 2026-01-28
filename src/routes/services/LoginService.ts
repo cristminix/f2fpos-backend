@@ -101,6 +101,13 @@ app.post("/login", zBodyValidator(loginValidationSchema), async (c) => {
     ({ id, name }) => ({ id, name }),
   )
   userInfo = await mUserInfo.getRowByUserId(userRow.id)
+  if (!userInfo) {
+    userInfo = {
+      avatar:
+        "https://i.pinimg.com/736x/26/10/cf/2610cfeda32266372fb9b71bf6b949bb.jpg",
+      displayName: userRow.username,
+    }
+  }
   return c.json({
     success: true,
     message: "login success",

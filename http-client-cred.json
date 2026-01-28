@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "message": "login success",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRmluZ2VycHJpbnQiOiIwMzI5YTU4MDkxNzVkYTlkM2QwZDEzNWJmMGI2YzBkMmIzODJlMWM1YmEzNDAxYjNjYWE0ZjhkMzNiOGNkNWY0IiwidWlkIjoxLCJyb2xlcyI6WyJwb3MudXNlcnMuaW5mbyIsImdyb3VwOm93bmVyIl0sImV4cCI6MTc3NDc2MDQ4MH0._ABNDm52MIZzNLNFoqvuTTqsEOPNJaHUXQ4ty753SXA",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRmluZ2VycHJpbnQiOiIyMTZhMDAwMzgyZTc2YWEyNzg2YTEwOTQyNmQ4Yjc4NTZjY2U2YmJjOWUzZjJjNWVlMWIyZTQ2ZTZhYzUxZmJkIiwidWlkIjoxLCJleHAiOjE3NzQ3NjA0ODB9.lzsrQwwFE_ZBXXBWLMbwscibspJkJvRBy2atnCOy61Q",
+  "roles": [
+    "pos.users.info",
+    "group:owner"
+  ],
+  "outlets": [
+    {
+      "id": 1,
+      "name": "Cafe Senja"
+    },
+    {
+      "id": 2,
+      "name": "F2F Mart"
+    },
+    {
+      "id": 3,
+      "name": "F2F Laundry"
+    }
+  ],
+  "user": {
+    "username": "demo",
+    "email": "demo@example.com",
+    "id": 1,
+    "avatar": "https://i.pinimg.com/736x/c0/5b/a5/c05ba59a93d4e7ca51cafd2575a21b84.jpg",
+    "displayName": "Lalisa Mano"
+  }
+}
