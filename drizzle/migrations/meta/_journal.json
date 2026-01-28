@@ -64,6 +64,13 @@
       "when": 1769576114684,
       "tag": "0008_broad_synch",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1769596198231,
+      "tag": "0009_opposite_black_tarantula",
+      "breakpoints": true
     }
   ]
 }

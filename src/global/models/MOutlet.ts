@@ -20,6 +20,14 @@ class MOutlet extends DrizzleModel {
       .where(eq(this.schema.userId, userId))
       .all()
   }
+
+  async getByName(name: string) {
+    const result = await this.db
+      .select()
+      .from(this.schema)
+      .where(eq(this.schema.name, name))
+    return result[0]
+  }
 }
 
 export default MOutlet

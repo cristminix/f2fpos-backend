@@ -1,12 +1,15 @@
-import { and, eq } from "drizzle-orm"
 import { z } from "zod"
 import { zBodyValidator } from "@hono-dev/zod-body-validator"
 import { createHonoWithBindings } from "../../global/fn/createHonoWithBindings"
-
 import MOutlet from "../../global/models/MOutlet"
-import { acls as outletAcls } from "./acls/OutletService"
-import { isInAcl } from "../../global/fn/isInAcl"
 import { validateUserRoles } from "../../middlewares/jwt-validate-user-roles"
+import { isInAcl } from "../../global/fn/isInAcl"
+import { acls as outletRouteAcls } from "../acls/outlets"
+
+const app = createHonoWithBindings()
+
+const getListOrCreateRoutePath = "/"
+const getUpdateDeleteRowRoutePath = "/:id"
 
 const outletCreateValidationSchema = z.object({
   userId: z.number(),
@@ -28,20 +31,15 @@ const outletUpdateValidationSchema = z.object({
   settings: z.string().optional(),
 })
 
-const app = createHonoWithBindings()
-
 // Get all outlets
-const outletListOrCreateRoutePath = "/"
-// const outletListAcls =
 app.get(
-  outletListOrCreateRoutePath,
+  getListOrCreateRoutePath,
   async (c, next) =>
     validateUserRoles(
       c,
       next,
-      isInAcl(outletListOrCreateRoutePath, outletAcls, "get"),
+      isInAcl(getListOrCreateRoutePath, outletRouteAcls),
     ),
-
   async (c) => {
     const mOutlet = new MOutlet(c)
 
@@ -54,41 +52,57 @@ app.get(
 )
 
 // Get outlet by ID
-app.get("/:id", async (c) => {
-  const id = parseInt(c.req.param("id"))
-
-  if (isNaN(id)) {
-    return c.json({ success: false, message: "Invalid ID" }, 400)
-  }
-
-  const mOutlet = new MOutlet(c)
-  const outlet = await mOutlet.getRow(id)
-
-  if (!outlet) {
-    return c.json({ success: false, message: "Outlet not found" }, 404)
-  }
-
-  return c.json({ success: true, data: outlet })
-})
-
-// Create new outlet
-app.post(
-  outletListOrCreateRoutePath,
+app.get(
+  getUpdateDeleteRowRoutePath,
   async (c, next) =>
     validateUserRoles(
       c,
       next,
-      isInAcl(outletListOrCreateRoutePath, outletAcls, "post"),
+      isInAcl(getUpdateDeleteRowRoutePath, outletRouteAcls),
+    ),
+  async (c) => {
+    const id = parseInt(c.req.param("id"), 10)
+
+    if (isNaN(id)) {
+      return c.json({ success: false, message: "Invalid ID" }, 400)
+    }
+
+    const mOutlet = new MOutlet(c)
+    const outlet = await mOutlet.getRow(id)
+
+    if (!outlet) {
+      return c.json({ success: false, message: "Outlet not found" }, 404)
+    }
+
+    return c.json({ success: true, data: outlet })
+  },
+)
+
+// Create new outlet
+app.post(
+  getListOrCreateRoutePath,
+  async (c, next) =>
+    validateUserRoles(
+      c,
+      next,
+      isInAcl(getListOrCreateRoutePath, outletRouteAcls),
     ),
   zBodyValidator(outletCreateValidationSchema),
   async (c) => {
     const outletData = c.req.valid("form")
-    console.log({ outletData })
     const mOutlet = new MOutlet(c)
 
     try {
+      const existingOutlet = await mOutlet.getByName(outletData.name)
+      if (existingOutlet) {
+        return c.json(
+          { success: false, message: "Outlet with this name already exists" },
+          409,
+        )
+      }
+
       const result = await mOutlet.create(outletData)
-      return c.json({ success: true, data: result })
+      return c.json({ success: true, data: result }, 201)
     } catch (error: any) {
       return c.json({ success: false, message: error.message }, 500)
     }
@@ -96,71 +110,80 @@ app.post(
 )
 
 // Update outlet by ID
-app.put("/:id", zBodyValidator(outletUpdateValidationSchema), async (c) => {
-  const id = parseInt(c.req.param("id"))
+app.put(
+  getUpdateDeleteRowRoutePath,
+  async (c, next) =>
+    validateUserRoles(
+      c,
+      next,
+      isInAcl(getUpdateDeleteRowRoutePath, outletRouteAcls),
+    ),
+  zBodyValidator(outletUpdateValidationSchema),
+  async (c) => {
+    const id = parseInt(c.req.param("id"), 10)
 
-  if (isNaN(id)) {
-    return c.json({ success: false, message: "Invalid ID" }, 400)
-  }
+    if (isNaN(id)) {
+      return c.json({ success: false, message: "Invalid ID" }, 400)
+    }
 
-  const outletData = c.req.valid("form")
+    const outletData = c.req.valid("form")
 
-  const mOutlet = new MOutlet(c)
+    const mOutlet = new MOutlet(c)
 
-  // Check if outlet exists
-  const existingOutlet = await mOutlet.getRow(id)
-  if (!existingOutlet) {
-    return c.json({ success: false, message: "Outlet not found" }, 404)
-  }
+    try {
+      const existingOutlet = await mOutlet.getRow(id)
+      if (!existingOutlet) {
+        return c.json({ success: false, message: "Outlet not found" }, 404)
+      }
 
-  try {
-    const result = await mOutlet.update(id, outletData)
-    return c.json({ success: true, data: result })
-  } catch (error: any) {
-    return c.json({ success: false, message: error.message }, 500)
-  }
-})
+      if (outletData.name && outletData.name !== existingOutlet.name) {
+        const existingOutletByName = await mOutlet.getByName(outletData.name)
+        if (existingOutletByName) {
+          return c.json(
+            { success: false, message: "Outlet with this name already exists" },
+            409,
+          )
+        }
+      }
+
+      const result = await mOutlet.update(id, outletData)
+      return c.json({ success: true, data: result })
+    } catch (error: any) {
+      return c.json({ success: false, message: error.message }, 500)
+    }
+  },
+)
 
 // Delete outlet by ID
-app.delete("/:id", async (c) => {
-  const id = parseInt(c.req.param("id"))
+app.delete(
+  getUpdateDeleteRowRoutePath,
+  async (c, next) =>
+    validateUserRoles(
+      c,
+      next,
+      isInAcl(getUpdateDeleteRowRoutePath, outletRouteAcls),
+    ),
+  async (c) => {
+    const id = parseInt(c.req.param("id"), 10)
 
-  if (isNaN(id)) {
-    return c.json({ success: false, message: "Invalid ID" }, 400)
-  }
+    if (isNaN(id)) {
+      return c.json({ success: false, message: "Invalid ID" }, 400)
+    }
 
-  const mOutlet = new MOutlet(c)
+    const mOutlet = new MOutlet(c)
 
-  // Check if outlet exists
-  const existingOutlet = await mOutlet.getRow(id)
-  if (!existingOutlet) {
-    return c.json({ success: false, message: "Outlet not found" }, 404)
-  }
+    try {
+      const existingOutlet = await mOutlet.getRow(id)
+      if (!existingOutlet) {
+        return c.json({ success: false, message: "Outlet not found" }, 404)
+      }
 
-  try {
-    const result = await mOutlet.delete(id, existingOutlet)
-    return c.json({ success: true, data: result })
-  } catch (error: any) {
-    return c.json({ success: false, message: error.message }, 500)
-  }
-})
-
-// Get outlets by user ID
-app.get("/by-user/:userId", async (c) => {
-  const userId = parseInt(c.req.param("userId"))
-
-  if (isNaN(userId)) {
-    return c.json({ success: false, message: "Invalid user ID" }, 400)
-  }
-
-  const mOutlet = new MOutlet(c)
-
-  try {
-    const outlets = await mOutlet.getOutletsByUserId(userId)
-    return c.json({ success: true, data: outlets })
-  } catch (error: any) {
-    return c.json({ success: false, message: error.message }, 500)
-  }
-})
+      const result = await mOutlet.delete(id, existingOutlet)
+      return c.json({ success: true, data: result })
+    } catch (error: any) {
+      return c.json({ success: false, message: error.message }, 500)
+    }
+  },
+)
 
 export default app

@@ -8,6 +8,7 @@ export const members = sqliteTable("members", {
   phoneNumber: text("phoneNumber"),
   passwordHash: text("password"),
   memberType: text("memberType") /*OWNER,DISTRIBUTOR,RESELLER*/,
+  resellerType: text("resellerType"),
   /**/
   accountStatus: text("accountStatus"),
   createdAt: text("createdAt")
