@@ -6,10 +6,11 @@ import { isInAcl } from "../global/fn/isInAcl"
 const app = createHonoWithBindings()
 import { acls as userRouteAcls } from "./acls/users"
 const getListRoutePath = "/getList"
-const userListAcls = isInAcl(getListRoutePath, userRouteAcls)
+
 app.get(
   getListRoutePath,
-  async (c, next) => validateUserRoles(c, next, userListAcls),
+  async (c, next) =>
+    validateUserRoles(c, next, isInAcl(getListRoutePath, userRouteAcls)),
   async (c) => {
     const db = drizzle(c.env.DB)
     const result = await db
