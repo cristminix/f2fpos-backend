@@ -37,6 +37,7 @@ app.get(
     const model = new MProductImages(c)
     const { limit = 10, page = 1, productId } = c.req.query()
     const data = await model.getListByProductId(
+      //@ts-ignore
       productId,
       // Number(limit),
       // Number(page),

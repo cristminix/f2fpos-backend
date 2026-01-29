@@ -131,8 +131,11 @@ app.put(
       return c.json({ success: false, message: "Invalid ID" }, 400)
     }
 
-    const productData = c.req.valid("form")
+    const productFormData = c.req.valid("form")
+    const { name, weight, price, description, sku, fileId } = productFormData
+    const productData = { name, weight, price, description, sku }
     const model = new MProduct(c)
+    const mProductImages = new MProductImages(c)
 
     try {
       const existingProduct = await model.getRow(id)
@@ -150,8 +153,23 @@ app.put(
         }
       }
 
-      const result = await model.update(id, productData)
-      return c.json({ success: true, data: result })
+      const [result] = await model.update(id, productData)
+      const existingProductImages = await mProductImages.getListByProductId(id)
+      const filtered = existingProductImages.filter((pi) => pi.key === fileId)
+      console.log({ filtered })
+      let resultFile = result
+      if (result && filtered.length === 0) {
+        const [resultFileRow] = await mProductImages.create({
+          productId: result.id,
+          key: fileId,
+          filename: fileId,
+        })
+        resultFile = resultFileRow
+      }
+      return c.json({
+        success: true,
+        data: { ...result, fileId: resultFile.key },
+      })
     } catch (error: any) {
       return c.json({ success: false, message: error.message }, 500)
     }
