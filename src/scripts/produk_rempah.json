@@ -1,0 +1,522 @@
+[
+  {
+    "name": "Adas Manis Biji",
+    "weight": 50,
+    "price": 15000,
+    "description": "Adas manis biji berkualitas tinggi, cocok untuk bumbu masakan dan minuman herbal",
+    "sku": "RMP-001",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/adas_manis_biji.png"
+  },
+  {
+    "name": "Adas Manis Bubuk",
+    "weight": 50,
+    "price": 18000,
+    "description": "Adas manis bubuk halus, praktis digunakan untuk berbagai masakan",
+    "sku": "RMP-002",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/adas_manis_bubuk.png"
+  },
+  {
+    "name": "Andaliman Biji",
+    "weight": 50,
+    "price": 25000,
+    "description": "Andaliman biji khas Sumatera Utara, memberikan rasa khas pada masakan",
+    "sku": "RMP-003",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/andaliman_biji.png"
+  },
+  {
+    "name": "Andaliman Bubuk",
+    "weight": 50,
+    "price": 28000,
+    "description": "Andaliman bubuk praktis untuk memberikan rasa khas Batak pada masakan",
+    "sku": "RMP-004",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/andaliman_bubuk.png"
+  },
+  {
+    "name": "Asam Jawa Bubuk",
+    "weight": 100,
+    "price": 12000,
+    "description": "Asam Jawa bubuk praktis untuk memberikan rasa asam pada masakan",
+    "sku": "RMP-005",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/asam_jawa_bubuk.png"
+  },
+  {
+    "name": "Bawang Bombay Bubuk",
+    "weight": 100,
+    "price": 15000,
+    "description": "Bawang Bombay bubuk untuk memberikan aroma khas pada masakan",
+    "sku": "RMP-006",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/bawang_bombay_bubuk.png"
+  },
+  {
+    "name": "Bawang Merah Bubuk",
+    "weight": 100,
+    "price": 14000,
+    "description": "Bawang merah bubuk praktis untuk berbagai masakan Indonesia",
+    "sku": "RMP-007",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/bawang_merah_bubuk.png"
+  },
+  {
+    "name": "Bawang Putih Bubuk",
+    "weight": 100,
+    "price": 13000,
+    "description": "Bawang putih bubuk berkualitas, praktis untuk bumbu masakan",
+    "sku": "RMP-008",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/bawang_putih_bubuk.png"
+  },
+  {
+    "name": "Biji Pala Biji",
+    "weight": 50,
+    "price": 35000,
+    "description": "Biji pala utuh berkualitas tinggi dengan aroma khas",
+    "sku": "RMP-009",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/biji_pala_biji.png"
+  },
+  {
+    "name": "Biji Pala Bubuk",
+    "weight": 50,
+    "price": 38000,
+    "description": "Biji pala bubuk halus untuk kue dan masakan",
+    "sku": "RMP-010",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/biji_pala_bubuk.png"
+  },
+  {
+    "name": "Biji Selasih Biji",
+    "weight": 100,
+    "price": 15000,
+    "description": "Biji selasih berkualitas untuk minuman dan dessert",
+    "sku": "RMP-011",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/biji_selasih_biji.png"
+  },
+  {
+    "name": "Bubuk Terasi",
+    "weight": 100,
+    "price": 18000,
+    "description": "Terasi bubuk berkualitas untuk memberikan rasa gurih pada masakan",
+    "sku": "RMP-012",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/bubuk_terasi.png"
+  },
+  {
+    "name": "Cabe Bubuk",
+    "weight": 100,
+    "price": 20000,
+    "description": "Cabe bubuk untuk memberikan rasa pedas pada masakan",
+    "sku": "RMP-013",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/cabe_bubuk.png"
+  },
+  {
+    "name": "Cabe Flake",
+    "weight": 100,
+    "price": 22000,
+    "description": "Cabe flake untuk hiasan dan memberikan rasa pedas pada masakan",
+    "sku": "RMP-014",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/cabe_flake.png"
+  },
+  {
+    "name": "Cabe Utuh Kering",
+    "weight": 100,
+    "price": 25000,
+    "description": "Cabe utuh kering berkualitas untuk berbagai masakan",
+    "sku": "RMP-015",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/cabe_utuh_kering.png"
+  },
+  {
+    "name": "Cabe Won Bubuk",
+    "weight": 100,
+    "price": 28000,
+    "description": "Cabe won bubuk khas untuk memberikan rasa pedas khas",
+    "sku": "RMP-016",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/cabe_won_bubuk.png"
+  },
+  {
+    "name": "Cengkeh Biji",
+    "weight": 50,
+    "price": 30000,
+    "description": "Cengkeh biji utuh berkualitas untuk masakan dan minuman",
+    "sku": "RMP-017",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/cengkeh_biji.png"
+  },
+  {
+    "name": "Cengkeh Bubuk",
+    "weight": 50,
+    "price": 32000,
+    "description": "Cengkeh bubuk praktis untuk bumbu masakan dan kue",
+    "sku": "RMP-018",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/cengkeh_bubuk.png"
+  },
+  {
+    "name": "Daun Karie Bubuk",
+    "weight": 50,
+    "price": 25000,
+    "description": "Daun karie bubuk untuk memberikan aroma khas pada masakan",
+    "sku": "RMP-019",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/daun_karie_bubuk.png"
+  },
+  {
+    "name": "Gula Semut Palm Sugar Granule",
+    "weight": 250,
+    "price": 22000,
+    "description": "Gula semut palm sugar granule untuk pemanis alami masakan",
+    "sku": "RMP-020",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/gula_semut_palm_sugar_granule.png"
+  },
+  {
+    "name": "Gulai Bubuk",
+    "weight": 100,
+    "price": 18000,
+    "description": "Bumbu gulai bubuk praktis untuk membuat masakan gulai",
+    "sku": "RMP-021",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/gulai_bubuk.png"
+  },
+  {
+    "name": "Jahe Putih Bubuk",
+    "weight": 100,
+    "price": 20000,
+    "description": "Jahe putih bubuk berkualitas untuk masakan dan minuman herbal",
+    "sku": "RMP-022",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/jahe_putih_bubuk.png"
+  },
+  {
+    "name": "Jahe Utuh",
+    "weight": 250,
+    "price": 15000,
+    "description": "Jahe utuh berkualitas untuk masakan dan minuman",
+    "sku": "RMP-023",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/jahe_utuh.png"
+  },
+  {
+    "name": "Jinten",
+    "weight": 100,
+    "price": 18000,
+    "description": "Jinten berkualitas untuk bumbu masakan dan roti",
+    "sku": "RMP-024",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/jinten.png"
+  },
+  {
+    "name": "Kapulaga Biji",
+    "weight": 50,
+    "price": 35000,
+    "description": "Kapulaga biji utuh berkualitas untuk masakan dan minuman",
+    "sku": "RMP-025",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kapulaga_biji.png"
+  },
+  {
+    "name": "Kapulaga Bubuk",
+    "weight": 50,
+    "price": 38000,
+    "description": "Kapulaga bubuk praktis untuk bumbu masakan dan kue",
+    "sku": "RMP-026",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kapulaga_bubuk.png"
+  },
+  {
+    "name": "Kapulaga Hijai Bubuk",
+    "weight": 50,
+    "price": 40000,
+    "description": "Kapulaga hijai bubuk berkualitas premium",
+    "sku": "RMP-027",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kapulaga_hijai_bubuk_copy.png"
+  },
+  {
+    "name": "Kapulaga Hijau Biji",
+    "weight": 50,
+    "price": 42000,
+    "description": "Kapulaga hijau biji utuh berkualitas premium",
+    "sku": "RMP-028",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kapulaga_hijau_biji.png"
+  },
+  {
+    "name": "Kapulaga Hijau Bubuk",
+    "weight": 50,
+    "price": 45000,
+    "description": "Kapulaga hijau bubuk premium untuk masakan dan kue",
+    "sku": "RMP-029",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kapulaga_hijau_bubuk.png"
+  },
+  {
+    "name": "Kapulaga Hitam Biji",
+    "weight": 50,
+    "price": 30000,
+    "description": "Kapulaga hitam biji utuh dengan aroma khas",
+    "sku": "RMP-030",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kapulaga_hitam_biji.png"
+  },
+  {
+    "name": "Kapulaga Hitam Bubuk",
+    "weight": 50,
+    "price": 32000,
+    "description": "Kapulaga hitam bubuk untuk masakan dengan aroma khas",
+    "sku": "RMP-031",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kapulaga_hitam_bubuk.png"
+  },
+  {
+    "name": "Kayu Manis Batang",
+    "weight": 100,
+    "price": 25000,
+    "description": "Kayu manis batang berkualitas untuk masakan dan minuman",
+    "sku": "RMP-032",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kayu_manis_batang.png"
+  },
+  {
+    "name": "Kayu Manis Bubuk",
+    "weight": 100,
+    "price": 28000,
+    "description": "Kayu manis bubuk praktis untuk kue dan masakan",
+    "sku": "RMP-033",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kayu_manis_bubuk.png"
+  },
+  {
+    "name": "Kecombrang Bubuk",
+    "weight": 100,
+    "price": 30000,
+    "description": "Kecombrang bubuk untuk memberikan aroma khas pada masakan",
+    "sku": "RMP-034",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kecombrang_bubuk.png"
+  },
+  {
+    "name": "Kembang Pala Bubuk",
+    "weight": 50,
+    "price": 40000,
+    "description": "Kembang pala bubuk premium untuk kue dan masakan",
+    "sku": "RMP-035",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kembang_pala_bubuk.png"
+  },
+  {
+    "name": "Kembang Pala Utuh",
+    "weight": 50,
+    "price": 38000,
+    "description": "Kembang pala utuh berkualitas premium",
+    "sku": "RMP-036",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kembang_pala_utuh.png"
+  },
+  {
+    "name": "Kemiri Biji",
+    "weight": 100,
+    "price": 20000,
+    "description": "Kemiri biji utuh untuk bumbu masakan Indonesia",
+    "sku": "RMP-037",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kemiri_biji.png"
+  },
+  {
+    "name": "Kemiri Bubuk",
+    "weight": 100,
+    "price": 22000,
+    "description": "Kemiri bubuk praktis untuk bumbu masakan",
+    "sku": "RMP-038",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kemiri_bubbuk.png"
+  },
+  {
+    "name": "Kencur Bubuk",
+    "weight": 100,
+    "price": 18000,
+    "description": "Kencur bubuk untuk masakan tradisional Indonesia",
+    "sku": "RMP-039",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kencur_bubuk.png"
+  },
+  {
+    "name": "Ketumbar Bubuk",
+    "weight": 100,
+    "price": 15000,
+    "description": "Ketumbar bubuk berkualitas untuk bumbu masakan",
+    "sku": "RMP-040",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/ketumbar_bubuk.png"
+  },
+  {
+    "name": "Ketumbar",
+    "weight": 100,
+    "price": 13000,
+    "description": "Ketumbar biji utuh berkualitas untuk bumbu masakan",
+    "sku": "RMP-041",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/ketumbar.png"
+  },
+  {
+    "name": "Kunyit Bubuk",
+    "weight": 100,
+    "price": 16000,
+    "description": "Kunyit bubuk berkualitas untuk memberikan warna dan rasa pada masakan",
+    "sku": "RMP-042",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/kunyit_bubuk.png"
+  },
+  {
+    "name": "Lada Hitam Bubuk",
+    "weight": 100,
+    "price": 20000,
+    "description": "Lada hitam bubuk untuk memberikan rasa pedas pada masakan",
+    "sku": "RMP-043",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/lada_hitam_bubuk.png"
+  },
+  {
+    "name": "Lada Hitam Crack",
+    "weight": 100,
+    "price": 22000,
+    "description": "Lada hitam crack untuk hiasan dan rasa pedas pada masakan",
+    "sku": "RMP-044",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/lada_hitam_crack.png"
+  },
+  {
+    "name": "Lada Hitam",
+    "weight": 100,
+    "price": 18000,
+    "description": "Lada hitam biji utuh berkualitas untuk bumbu masakan",
+    "sku": "RMP-045",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/lada_hitam.png"
+  },
+  {
+    "name": "Lada Putih Bubuk",
+    "weight": 100,
+    "price": 25000,
+    "description": "Lada putih bubuk untuk memberikan rasa pedas khas pada masakan",
+    "sku": "RMP-046",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/lada_putih_bubuk.png"
+  },
+  {
+    "name": "Lada Putih",
+    "weight": 100,
+    "price": 23000,
+    "description": "Lada putih biji utuh berkualitas untuk bumbu masakan",
+    "sku": "RMP-047",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/lada_putih.png"
+  },
+  {
+    "name": "Lengkuas Bubuk",
+    "weight": 100,
+    "price": 18000,
+    "description": "Lengkuas bubuk praktis untuk masakan tradisional Indonesia",
+    "sku": "RMP-048",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/lengkuas_bubuk.png"
+  },
+  {
+    "name": "Mala Biji",
+    "weight": 50,
+    "price": 28000,
+    "description": "Mala biji untuk bumbu masakan khas",
+    "sku": "RMP-049",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/mala_biji.png"
+  },
+  {
+    "name": "Mala Bubuk",
+    "weight": 50,
+    "price": 30000,
+    "description": "Mala bubuk praktis untuk bumbu masakan khas",
+    "sku": "RMP-050",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/mala_bubuk.png"
+  },
+  {
+    "name": "Ngohiong Bubuk",
+    "weight": 100,
+    "price": 25000,
+    "description": "Ngohiong bubuk untuk masakan khas Chinese-Indonesian",
+    "sku": "RMP-051",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/ngohiong_bubuk.png"
+  },
+  {
+    "name": "Paprika Bubuk",
+    "weight": 100,
+    "price": 22000,
+    "description": "Paprika bubuk untuk memberikan warna dan rasa pada masakan",
+    "sku": "RMP-052",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/paprika_bubuk.png"
+  },
+  {
+    "name": "Pekak Bubuk",
+    "weight": 50,
+    "price": 28000,
+    "description": "Pekak bubuk untuk bumbu masakan dan minuman herbal",
+    "sku": "RMP-053",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/pekak_bubuk.png"
+  },
+  {
+    "name": "Pekak",
+    "weight": 50,
+    "price": 26000,
+    "description": "Pekak utuh untuk bumbu masakan dan minuman herbal",
+    "sku": "RMP-054",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/pekak.png"
+  },
+  {
+    "name": "Rendang Bubuk",
+    "weight": 100,
+    "price": 20000,
+    "description": "Bumbu rendang bubuk praktis untuk membuat masakan rendang",
+    "sku": "RMP-055",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/rendang_bubuk.png"
+  },
+  {
+    "name": "Sereh Bubuk",
+    "weight": 100,
+    "price": 18000,
+    "description": "Sereh bubuk praktis untuk memberikan aroma khas pada masakan",
+    "sku": "RMP-056",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/sereh_bubuk.png"
+  },
+  {
+    "name": "Specoek Bubuk",
+    "weight": 100,
+    "price": 22000,
+    "description": "Specoek bubuk untuk bumbu masakan khas",
+    "sku": "RMP-057",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/specoek_bubuk.png"
+  },
+  {
+    "name": "Tamarind Liquid",
+    "weight": 250,
+    "price": 20000,
+    "description": "Tamarind liquid praktis untuk memberikan rasa asam pada masakan",
+    "sku": "RMP-058",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/tamarind_liquid.png"
+  },
+  {
+    "name": "Temulawak Bubuk",
+    "weight": 100,
+    "price": 20000,
+    "description": "Temulawak bubuk untuk masakan dan minuman herbal",
+    "sku": "RMP-059",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/temulawak_bubuk.png"
+  },
+  {
+    "name": "Wijen Putih Bubuk",
+    "weight": 100,
+    "price": 18000,
+    "description": "Wijen putih bubuk untuk hiasan dan bumbu masakan",
+    "sku": "RMP-060",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/wijen_putih_bubuk.png"
+  },
+  {
+    "name": "Wijen Putih Paste",
+    "weight": 250,
+    "price": 25000,
+    "description": "Wijen putih paste untuk bumbu masakan dan saus",
+    "sku": "RMP-061",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/wijen_putih_paste.png"
+  },
+  {
+    "name": "Wijen Putih Sangrai Bubuk",
+    "weight": 100,
+    "price": 20000,
+    "description": "Wijen putih sangrai bubuk dengan aroma khas untuk hiasan dan bumbu",
+    "sku": "RMP-062",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/wijen_putih_sangrai_bubuk.png"
+  },
+  {
+    "name": "Wijen Putih Sangrai Paste",
+    "weight": 250,
+    "price": 28000,
+    "description": "Wijen putih sangrai paste dengan aroma khas untuk bumbu masakan",
+    "sku": "RMP-063",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/wijen_putih_sangrai_paste.png"
+  },
+  {
+    "name": "Wijen Putih Sangrai",
+    "weight": 100,
+    "price": 22000,
+    "description": "Wijen putih sangrai dengan aroma khas untuk hiasan masakan",
+    "sku": "RMP-064",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/wijen_putih_sangrai.png"
+  },
+  {
+    "name": "Wijen Putih",
+    "weight": 100,
+    "price": 16000,
+    "description": "Wijen putih berkualitas untuk hiasan dan bumbu masakan",
+    "sku": "RMP-065",
+    "image": "PRODUK_PAWON_dari_WEB/Rempah/wijen_putih.png"
+  }
+]
