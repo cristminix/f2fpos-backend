@@ -18,6 +18,8 @@ import { shippings } from "./shippings"
 import { shippingAddresses } from "./shipping_addresses"
 import { paymentTransactions } from "./payment_transactions"
 import { productStocks } from "./product_stocks"
+import { productCategoryProducts } from "./product_category_products"
+import { productImages } from "./product_images"
 // Export all schema definitions
 export {
   sessions,
@@ -39,6 +41,8 @@ export {
   shippingAddresses,
   paymentTransactions,
   productStocks,
+  productCategoryProducts,
+  productImages,
 }
 
 // Import and export all types
@@ -61,6 +65,8 @@ import type { Shipping } from "./shippings"
 import type { ShippingAddress } from "./shipping_addresses"
 import type { PaymentTransaction } from "./payment_transactions"
 import type { ProductStock } from "./product_stocks"
+import type { ProductCategoryProduct } from "./product_category_products"
+import type { ProductImage } from "./product_images"
 export type {
   Session,
   User,
@@ -81,4 +87,6 @@ export type {
   ShippingAddress,
   PaymentTransaction,
   ProductStock,
+  ProductCategoryProduct,
+  ProductImage,
 }

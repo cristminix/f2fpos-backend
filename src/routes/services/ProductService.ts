@@ -1,5 +1,6 @@
 import { createHonoWithBindings } from "../../global/fn/createHonoWithBindings"
 import { MProduct } from "../../global/models/MProduct"
+import { MProductImages } from "../../global/models/MProductImages"
 import { z } from "zod"
 import { zBodyValidator } from "@hono-dev/zod-body-validator"
 import { validateUserRoles } from "../../middlewares/jwt-validate-user-roles"
@@ -17,6 +18,7 @@ const productCreateValidationSchema = z.object({
   price: z.number(),
   description: z.string().optional(),
   sku: z.string(),
+  fileId: z.string(),
 })
 
 const productUpdateValidationSchema = z.object({
@@ -25,6 +27,7 @@ const productUpdateValidationSchema = z.object({
   price: z.number().optional(),
   description: z.string().optional(),
   sku: z.string().optional(),
+  fileId: z.string().optional(),
 })
 
 // GET / - List all products
@@ -78,20 +81,34 @@ app.post(
     ),
   zBodyValidator(productCreateValidationSchema),
   async (c) => {
-    const productData = c.req.valid("form")
+    const productFormData = c.req.valid("form")
     const model = new MProduct(c)
-
+    const mProductImages = new MProductImages(c)
     try {
-      const existingProduct = await model.getBySku(productData.sku)
+      const existingProduct = await model.getBySku(productFormData.sku)
       if (existingProduct) {
         return c.json(
           { success: false, message: "Product with this SKU already exists" },
           409,
         )
       }
+      const { name, weight, price, description, sku, fileId } = productFormData
+      const productData = { name, weight, price, description, sku }
 
-      const result = await model.create(productData)
-      return c.json({ success: true, data: result }, 201)
+      const [result] = await model.create(productData)
+      let resultFile
+      if (result) {
+        const [resultFileRow] = await mProductImages.create({
+          productId: result.id,
+          key: fileId,
+          filename: fileId,
+        })
+        resultFile = resultFileRow
+      }
+      return c.json(
+        { success: true, data: { ...result, fileId: resultFile.key } },
+        201,
+      )
     } catch (error: any) {
       return c.json({ success: false, message: error.message }, 500)
     }

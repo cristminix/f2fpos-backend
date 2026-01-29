@@ -16,6 +16,9 @@ import { ShippingAddressService } from "./services/ShippingAddressService"
 import { PaymentTransactionService } from "./services/PaymentTransactionService"
 import { ProductService } from "./services/ProductService"
 import { ProductStockService } from "./services/ProductStockService"
+import ProductCategoryProductServiceRouter from "./services/ProductCategoryProductService"
+import FileUploadServiceRouter from "./services/FileUploadRouter"
+import { ProductImageService } from "./services/ProductImageService"
 
 const app = createHonoWithBindings()
 
@@ -35,6 +38,9 @@ app.route("/ShippingService", ShippingService)
 app.route("/ShippingAddressService", ShippingAddressService)
 app.route("/PaymentTransactionService", PaymentTransactionService)
 app.route("/ProductService", ProductService)
+app.route("/ProductImageService", ProductImageService)
 app.route("/ProductStockService", ProductStockService)
+app.route("/ProductCategoryProductService", ProductCategoryProductServiceRouter)
+app.route("/FileUploadService", FileUploadServiceRouter)
 
 export default app

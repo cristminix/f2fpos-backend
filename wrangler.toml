@@ -21,6 +21,9 @@ TOKEN_EXPIRATION = 86400
 binding = "IDB_KEYVAL"
 id = "5bd608872f1942f69f463173086e3842"
 
+[[kv_namespaces]]
+binding = "B2B_FILES_KV"
+id = "3e38cf7500f64b30a072373f93cd7325"
 # [[r2_buckets]]
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"

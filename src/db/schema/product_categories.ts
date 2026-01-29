@@ -1,6 +1,7 @@
 import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core"
 import { sql } from "drizzle-orm"
 import { InferModel } from "drizzle-orm"
+import { productCategoryProducts } from "./product_category_products"
 
 export const product_categories = sqliteTable("product_category", {
   // id is set on insert, incrementing

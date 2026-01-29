@@ -71,6 +71,20 @@
       "when": 1769596198231,
       "tag": "0009_opposite_black_tarantula",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1769651420561,
+      "tag": "0010_create-product-category-products-table",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1769657030710,
+      "tag": "0011_lumpy_dreaming_celestial",
+      "breakpoints": true
     }
   ]
 }
