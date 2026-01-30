@@ -4,7 +4,7 @@ import { productCategoryProducts } from "./product_category_products"
 import { productImages } from "./product_images"
 
 export const products = sqliteTable("products", {
-  id: integer("id").primaryKey(),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   name: text("name"),
   weight: integer("weight"),
   price: integer("price"),

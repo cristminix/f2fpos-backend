@@ -14,4 +14,4 @@ class MProductCategory extends DrizzleModel {
   }
 }
 
-export default MProductCategory
+export { MProductCategory }

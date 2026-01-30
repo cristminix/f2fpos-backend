@@ -29,8 +29,14 @@ class DrizzleModel extends DrizzleBaseModel {
       .where(eq(this.schema[this.pk], pk))
       .returning()
   }
-  async create(row) {
-    return await await this.db.insert(this.schema).values(row).returning()
+  async create(row_) {
+    console.log('create() input:', row_)
+    console.log('pk field:', this.pk)
+    const row = { ...row_ }
+    // Remove primary key field to allow auto-increment
+    delete row[this.pk]
+    console.log('create() after delete pk:', row)
+    return await this.db.insert(this.schema).values(row).returning()
   }
 }
 

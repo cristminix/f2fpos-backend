@@ -6,7 +6,8 @@ import { zBodyValidator } from "@hono-dev/zod-body-validator"
 import { validateUserRoles } from "../../middlewares/jwt-validate-user-roles"
 import { isInAcl } from "../../global/fn/isInAcl"
 import { acls as productRouteAcls } from "../acls/products"
-
+import { MProductCategory } from "../../global/models/MProductCategory"
+import { MProductCategoryProduct } from "../../global/models/MProductCategoryProduct"
 const app = createHonoWithBindings()
 
 const getListOrCreateRoutePath = "/"
@@ -19,6 +20,7 @@ const productCreateValidationSchema = z.object({
   description: z.string().optional(),
   sku: z.string(),
   fileId: z.string(),
+  categoryId: z.number(),
 })
 
 const productUpdateValidationSchema = z.object({
@@ -28,6 +30,7 @@ const productUpdateValidationSchema = z.object({
   description: z.string().optional(),
   sku: z.string().optional(),
   fileId: z.string().optional(),
+  categoryId: z.number().optional(),
 })
 
 // GET / - List all products
@@ -41,8 +44,16 @@ app.get(
     ),
   async (c) => {
     const model = new MProduct(c)
-    const { limit = 10, page = 1 } = c.req.query()
-    const data = await model.getList(Number(limit), Number(page))
+    const {
+      limit = 10,
+      page = 1,
+      sortBy = "id",
+      sortOrder = "desc",
+    } = c.req.query()
+    //@ts-ignore
+    const data = await model.getListWithCategory(Number(limit), Number(page), {
+      [sortBy]: sortOrder,
+    })
     return c.json(data)
   },
 )
@@ -92,7 +103,8 @@ app.post(
           409,
         )
       }
-      const { name, weight, price, description, sku, fileId } = productFormData
+      const { name, weight, price, description, sku, fileId, categoryId } =
+        productFormData
       const productData = { name, weight, price, description, sku }
 
       const [result] = await model.create(productData)
@@ -104,6 +116,25 @@ app.post(
           filename: fileId,
         })
         resultFile = resultFileRow
+
+        if (resultFile && categoryId) {
+          console.log({ categoryId })
+          //check category exists for this product
+          const mProductCategoryProduct = new MProductCategoryProduct(c)
+          const categoryExist = await mProductCategoryProduct.getRow({
+            productId: resultFile.id,
+            categoryId,
+          })
+          console.log({ categoryExist })
+
+          if (!categoryExist) {
+            console.log({ productId: resultFile.id, categoryId })
+
+            const result = await mProductCategoryProduct.create({ productId: resultFile.id, categoryId })
+            console.log({ result })
+          }
+          //if exists dont add record
+        }
       }
       return c.json(
         { success: true, data: { ...result, fileId: resultFile.key } },

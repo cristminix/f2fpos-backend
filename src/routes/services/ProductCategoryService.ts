@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { zBodyValidator } from "@hono-dev/zod-body-validator"
 import { createHonoWithBindings } from "../../global/fn/createHonoWithBindings"
-import MProductCategory from "../../global/models/MProductCategory"
+import { MProductCategory } from "../../global/models/MProductCategory"
 import { validateUserRoles } from "../../middlewares/jwt-validate-user-roles"
 import { isInAcl } from "../../global/fn/isInAcl"
 import { acls as productCategoryRouteAcls } from "../acls/product_categories"

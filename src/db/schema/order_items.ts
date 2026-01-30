@@ -4,7 +4,7 @@ import { InferModel } from "drizzle-orm"
 import { products } from "./products"
 
 export const orderItems = sqliteTable("order_items", {
-  id: integer("id").primaryKey(),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   orderId: integer("orderId").references(() => orders.id),
   productId: integer("productId").references(() => products.id),
   quantity: integer("quantity"),

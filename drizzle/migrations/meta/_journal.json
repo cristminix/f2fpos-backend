@@ -5,85 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1719908714614,
-      "tag": "0000_steep_captain_universe",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1769004604932,
-      "tag": "0001_sticky_roulette",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1769046312536,
-      "tag": "0002_bright_the_enforcers",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1769051534489,
-      "tag": "0003_lumpy_toro",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1769051587678,
-      "tag": "0004_crazy_psylocke",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "6",
-      "when": 1769070550467,
-      "tag": "0005_marvelous_ted_forrester",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "6",
-      "when": 1769569830323,
-      "tag": "0006_reflective_veda",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "6",
-      "when": 1769570198886,
-      "tag": "0007_brown_molecule_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "6",
-      "when": 1769576114684,
-      "tag": "0008_broad_synch",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "6",
-      "when": 1769596198231,
-      "tag": "0009_opposite_black_tarantula",
-      "breakpoints": true
-    },
-    {
-      "idx": 10,
-      "version": "6",
-      "when": 1769651420561,
-      "tag": "0010_create-product-category-products-table",
-      "breakpoints": true
-    },
-    {
-      "idx": 11,
-      "version": "6",
-      "when": 1769657030710,
-      "tag": "0011_lumpy_dreaming_celestial",
+      "when": 1769739134098,
+      "tag": "0000_high_hex",
       "breakpoints": true
     }
   ]

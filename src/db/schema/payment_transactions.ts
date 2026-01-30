@@ -3,7 +3,7 @@ import { orders } from "./orders"
 import { InferModel, sql } from "drizzle-orm"
 
 export const paymentTransactions = sqliteTable("payment_transactions", {
-  id: integer("id").primaryKey(),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   orderId: integer("orderId").references(() => orders.id),
   transactionId: text("transactionId").unique(),
   paymentMethod: text("paymentMethod"),

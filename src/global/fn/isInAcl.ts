@@ -17,7 +17,7 @@ export const isInAcl = (path, acls, preferedMethod = "get") => {
     typeof acls === "object" && path in acls
       ? acls[path]
       : { role: undefined, groups: [], method: "get" }
-  console.log({ parsedAcl, path })
+  // console.log({ parsedAcl, path })
   if (Array.isArray(parsedAcl)) {
     const [newParsedAcl] = parsedAcl.filter((a) => a.method === preferedMethod)
     if (newParsedAcl) {

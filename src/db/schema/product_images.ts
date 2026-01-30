@@ -3,7 +3,7 @@ import { InferModel } from "drizzle-orm"
 import { products } from "./products"
 
 export const productImages = sqliteTable("product_images", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   filename: text("filename").notNull(),
   key: text("key").notNull(),
   productId: integer("product_id")

@@ -3,7 +3,7 @@ import { members } from "./members"
 import { InferModel, sql } from "drizzle-orm"
 
 export const memberships = sqliteTable("memberships", {
-  id: integer("id").primaryKey(),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   memberId: integer("memberId").references(() => members.id),
   tierLevel: text("tierLevel"),
   registrationDate: text("registrationDate")

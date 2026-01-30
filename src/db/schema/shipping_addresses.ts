@@ -3,7 +3,7 @@ import { shippings } from "./shippings"
 import { InferModel } from "drizzle-orm"
 
 export const shippingAddresses = sqliteTable("shipping_addresses", {
-  id: integer("id").primaryKey(),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   shippingId: integer("shippingId").references(() => shippings.id),
   fullName: text("fullName"),
   phoneNumber: text("phoneNumber"),

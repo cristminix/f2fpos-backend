@@ -2,7 +2,7 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { InferModel, sql } from "drizzle-orm"
 
 export const members = sqliteTable("members", {
-  id: integer("id").primaryKey(),
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   fullName: text("fullName"),
   email: text("email").unique(),
   phoneNumber: text("phoneNumber"),
