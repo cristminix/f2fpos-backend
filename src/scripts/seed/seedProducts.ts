@@ -110,6 +110,7 @@ async function createProduct(product: any, outletId: number) {
           description: product.description,
           sku: product.sku,
           fileId: product.fileId,
+          categoryId: 3,
           // We'll add fileId later if we successfully upload the image
         }),
       },

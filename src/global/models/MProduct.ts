@@ -61,6 +61,7 @@ export class MProduct extends DrizzleModel {
         description: this.schema.description,
         sku: this.schema.sku,
         categoryName: product_categories.name,
+        categoryId: product_categories.id,
       })
       .from(this.schema)
       .leftJoin(

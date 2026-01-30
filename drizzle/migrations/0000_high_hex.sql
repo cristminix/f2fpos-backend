@@ -110,7 +110,6 @@ CREATE TABLE `posts` (
 );
 --> statement-breakpoint
 CREATE TABLE `product_category_products` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`categoryId` integer NOT NULL,
 	`productId` integer NOT NULL,
 	FOREIGN KEY (`categoryId`) REFERENCES `product_category`(`id`) ON UPDATE no action ON DELETE cascade,
