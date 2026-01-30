@@ -38,7 +38,7 @@ async function getBase64FromFileContent(filePath: string): Promise<string> {
 
 export async function seedProducts() {
   // Load data from JSON file
-  const jsonData = await import("../produk_rempah.json", {
+  const jsonData = await import("../PRODUK_PAWON_dari_WEB/Herbs/product_herbs.json", {
     assert: { type: "json" },
   })
   const productsData = jsonData.default
@@ -110,7 +110,7 @@ async function createProduct(product: any, outletId: number) {
           description: product.description,
           sku: product.sku,
           fileId: product.fileId,
-          categoryId: 3,
+          categoryId: 2,
           // We'll add fileId later if we successfully upload the image
         }),
       },
