@@ -20,6 +20,7 @@ import { paymentTransactions } from "./payment_transactions"
 import { productStocks } from "./product_stocks"
 import { productCategoryProducts } from "./product_category_products"
 import { productImages } from "./product_images"
+import { productCategoryImages } from "./product_category_images"
 // Export all schema definitions
 export {
   sessions,
@@ -43,6 +44,7 @@ export {
   productStocks,
   productCategoryProducts,
   productImages,
+  productCategoryImages,
 }
 
 // Import and export all types
@@ -67,6 +69,7 @@ import type { PaymentTransaction } from "./payment_transactions"
 import type { ProductStock } from "./product_stocks"
 import type { ProductCategoryProduct } from "./product_category_products"
 import type { ProductImage } from "./product_images"
+import type { ProductCategoryImage } from "./product_category_images"
 export type {
   Session,
   User,
@@ -89,4 +92,5 @@ export type {
   ProductStock,
   ProductCategoryProduct,
   ProductImage,
+  ProductCategoryImage,
 }

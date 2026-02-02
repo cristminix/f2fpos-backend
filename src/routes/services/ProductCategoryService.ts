@@ -5,6 +5,7 @@ import { MProductCategory } from "../../global/models/MProductCategory"
 import { validateUserRoles } from "../../middlewares/jwt-validate-user-roles"
 import { isInAcl } from "../../global/fn/isInAcl"
 import { acls as productCategoryRouteAcls } from "../acls/product_categories"
+import { MProductCategoryImages } from "../../global/models/MProductCategoryImages"
 
 const app = createHonoWithBindings()
 
@@ -13,12 +14,16 @@ const getUpdateDeleteRowRoutePath = "/:id"
 
 const productCategoryCreateValidationSchema = z.object({
   name: z.string(),
-  outletId: z.number(),
+  // outletId: z.number(),
+  fileId: z.string(),
+
 })
 
 const productCategoryUpdateValidationSchema = z.object({
   name: z.string().optional(),
-  outletId: z.number().optional(),
+  // outletId: z.number().optional(),
+  fileId: z.string().optional(),
+
 })
 
 // Get all product categories
@@ -33,9 +38,12 @@ app.get(
   async (c) => {
     const mProductCategory = new MProductCategory(c)
 
-    const { limit = 10, page = 1 } = c.req.query()
-
-    const result = await mProductCategory.getList(Number(limit), Number(page))
+    const { limit = 10, page = 1,
+      sortBy = "id",
+      sortOrder = "desc",
+    } = c.req.query()
+    //@ts-ignore
+    const result = await mProductCategory.getListWithImage(Number(limit), Number(page), { [sortBy]: sortOrder })
 
     return c.json(result)
   },
@@ -82,9 +90,12 @@ app.post(
     ),
   zBodyValidator(productCategoryCreateValidationSchema),
   async (c) => {
-    const categoryData = c.req.valid("form")
+    const { fileId, name } = c.req.valid("form")
+    const categoryData = { name, outletId: 1 }
 
     const mProductCategory = new MProductCategory(c)
+    const mProductCategoryImages = new MProductCategoryImages(c)
+
     try {
       // Check if category with this name already exists
       const existingCategory = await mProductCategory.getByName(
@@ -100,8 +111,18 @@ app.post(
         )
       }
 
-      const result = await mProductCategory.create(categoryData)
-      return c.json({ success: true, data: result }, 201)
+      const [result] = await mProductCategory.create(categoryData)
+      let resultFile
+
+      if (result) {
+        const [resultFileRow] = await mProductCategoryImages.create({
+          productCategoryId: result.id,
+          key: fileId,
+          filename: fileId,
+        })
+        resultFile = resultFileRow
+      }
+      return c.json({ success: true, data: { ...result.fileId } }, 201)
     } catch (error: any) {
       return c.json({ success: false, message: error.message }, 500)
     }
@@ -124,10 +145,12 @@ app.put(
     if (isNaN(id)) {
       return c.json({ success: false, message: "Invalid ID" }, 400)
     }
+    const { fileId, name } = c.req.valid("form")
 
-    const categoryData = c.req.valid("form")
+    const categoryData = { name }
 
     const mProductCategory = new MProductCategory(c)
+    const mProductCategoryImages = new MProductCategoryImages(c)
 
     try {
       // Check if category exists
@@ -154,7 +177,19 @@ app.put(
         }
       }
 
-      const result = await mProductCategory.update(id, categoryData)
+      const [result] = await mProductCategory.update(id, categoryData)
+      const existingProductCategoryImages = await mProductCategoryImages.getListByProductCategoryId(id)
+      const filtered = existingProductCategoryImages.filter((pci) => pci.key === fileId)
+      console.log({ filtered })
+      let resultFile = result
+      if (result && filtered.length === 0) {
+        const [resultFileRow] = await mProductCategoryImages.create({
+          productCategoryId: result.id,
+          key: fileId,
+          filename: fileId,
+        })
+        resultFile = resultFileRow
+      }
       return c.json({ success: true, data: result })
     } catch (error: any) {
       return c.json({ success: false, message: error.message }, 500)
